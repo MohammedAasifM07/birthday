@@ -4,209 +4,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎂</title>
+<title>Advanced Birthday Surprise 🎂</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: #462044;
-  background: linear-gradient(135deg, #fff0f6, #e9e2ff);
-}
-
-button, input { font: inherit; }
-
-button {
-  border: none;
-  border-radius: 25px;
-  padding: 13px 20px;
-  margin: 7px;
-  background: #e83288;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover { filter: brightness(1.08); }
-button:disabled { opacity: .5; cursor: not-allowed; }
-
-.page {
-  display: none;
-  min-height: 100vh;
-  padding: 25px 15px;
-}
-
-.page.active { display: block; }
-
-h1 { color: #d52b82; }
-
-.cover {
-  min-height: 100vh;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: white;
-  background: linear-gradient(135deg, #ff70a6, #845ec2);
-}
-
-.cover h1 { color: white; }
-
-.cover img {
-  width: min(90%, 430px);
-  height: 260px;
-  object-fit: cover;
-  border-radius: 22px;
-  margin: 20px auto;
-  display: block;
-}
-
-.cover button {
-  background: white;
-  color: #b52478;
-}
-
-.panel {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 22px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 6px 25px #53315b1a;
-}
-
-.info {
-  max-width: 650px;
-  margin: 20px auto;
-  padding: 18px;
-  border-radius: 16px;
-  background: white;
-  line-height: 1.8;
-}
-
-label {
-  display: block;
-  text-align: left;
-  font-weight: bold;
-  margin-top: 12px;
-}
-
-input[type="text"], input[type="number"] {
-  width: 100%;
-  padding: 13px;
-  margin: 8px 0;
-  border: 1px solid #d9b9d5;
-  border-radius: 10px;
-}
-
-.date-fields {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.option-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-  max-width: 850px;
-  margin: 20px auto;
-}
-
-.option {
-  padding: 20px;
-  background: white;
-  border-radius: 18px;
-  box-shadow: 0 5px 20px #53315b1a;
-}
-
-.option .emoji { font-size: 48px; }
-
-#photoGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
-  gap: 12px;
-  margin: 20px auto;
-}
-
-.photo-card {
-  padding: 7px;
-  background: white;
-  border-radius: 12px;
-  overflow-wrap: anywhere;
-}
-
-.photo-card img {
-  width: 100%;
-  height: 135px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.photo-card small { display: block; padding: 6px; }
-
-#videoPreview {
-  width: 100%;
-  max-width: 800px;
-  margin: 15px auto;
-  background: #160b20;
-  border-radius: 14px;
-}
-
-#renderCanvas { display: none; }
-
-#status {
-  font-weight: bold;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-.note {
-  color: #6b536b;
-  font-size: .9rem;
-  line-height: 1.6;
-}
-
-/* Name and DOB popup */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  inset: 0;
-  padding: 18px;
-  background: #180b25df;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-}
-
-.modal.open { display: flex; }
-
-.modal-box {
-  width: 100%;
-  max-width: 480px;
-  background: white;
-  border-radius: 22px;
-  padding: 25px;
-  box-shadow: 0 10px 40px #0005;
-}
-
-.modal-box h2 { color: #d52b82; }
-
-.close-button {
-  float: right;
-  margin: 0;
-  padding: 8px 13px;
-  background: #614269;
-}
-
-@media (max-width: 420px) {
-  .modal-box { padding: 18px; }
-  .date-fields { gap: 6px; }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;text-align:center;color:#462044;background:linear-gradient(135deg,#fff0f6,#e9e2ff)}
+button,input,select{font:inherit}
+button{border:0;border-radius:25px;padding:13px 20px;margin:7px;background:linear-gradient(110deg,#ff3e9d,#845ec2);color:white;font-weight:bold;cursor:pointer;box-shadow:0 7px 18px #a83c8750}
+button:hover{filter:brightness(1.1);transform:translateY(-2px)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.page{display:none;min-height:100vh;padding:25px 15px}
+.page.active{display:block}
+h1{color:#d52b82}
+.cover{min-height:100vh;display:flex!important;align-items:center;justify-content:center;padding:20px;color:white;position:relative;overflow:hidden;background:radial-gradient(circle at 15% 20%,#ff9ecb,transparent 35%),radial-gradient(circle at 80% 80%,#a28bff,transparent 40%),linear-gradient(135deg,#ff70a6,#845ec2);background-size:150% 150%;animation:bgShift 10s ease-in-out infinite alternate}
+@keyframes bgShift{to{background-position:100% 0}}
+.cover h1{color:white;text-shadow:0 0 20px #fff8,0 4px 12px #7c1d68}
+.cover img{width:min(90%,430px);height:260px;object-fit:cover;border-radius:22px;margin:20px auto;display:block;border:3px solid #ffffffa8;box-shadow:0 15px 45px #3d124c66;animation:floatPhoto 4s ease-in-out infinite}
+@keyframes floatPhoto{50%{transform:translateY(-8px) rotate(.5deg)}}
+.cover button{background:white;color:#b52478}
+.cover-content{position:relative;z-index:2;max-width:800px}
+.panel{max-width:950px;margin:20px auto;padding:22px;background:#ffffffeb;border-radius:20px;box-shadow:0 6px 25px #53315b1a}
+.info{max-width:650px;margin:20px auto;padding:18px;border-radius:16px;background:white;line-height:1.8;box-shadow:0 6px 22px #53315b12}
+label{display:block;text-align:left;font-weight:bold;margin-top:12px}
+input[type=text],input[type=number],input[type=file],select{width:100%;padding:13px;margin:8px 0;border:1px solid #d9b9d5;border-radius:10px;background:white}
+.date-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.option-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;max-width:850px;margin:20px auto}
+.option{padding:20px;background:white;border-radius:18px;box-shadow:0 5px 20px #53315b1a}
+.option .emoji{font-size:48px}
+#photoGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:12px;margin:20px auto}
+.photo-card{padding:7px;background:white;border-radius:12px;overflow-wrap:anywhere;box-shadow:0 4px 14px #53315b12}
+.photo-card img{width:100%;height:135px;object-fit:cover;border-radius:8px}
+.photo-card small{display:block;padding:6px}
+#videoPreview{width:100%;max-width:800px;margin:15px auto;background:#160b20;border-radius:14px}
+#renderCanvas{display:none}
+#status{font-weight:bold;line-height:1.6;overflow-wrap:anywhere}
+.note{color:#6b536b;font-size:.9rem;line-height:1.6}
+.modal{display:none;position:fixed;z-index:1000;inset:0;padding:18px;background:#180b25df;align-items:center;justify-content:center;overflow-y:auto}
+.modal.open{display:flex}
+.modal-box{width:100%;max-width:480px;background:white;border-radius:22px;padding:25px;box-shadow:0 10px 40px #0005}
+.modal-box h2{color:#d52b82}
+.close-button{float:right;margin:0;padding:8px 13px;background:#614269}
+.sparkle{position:absolute;pointer-events:none;z-index:1;animation:drift 7s linear infinite;opacity:.75}
+@keyframes drift{0%{transform:translateY(30vh) rotate(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-120vh) rotate(360deg);opacity:0}}
+@media(max-width:420px){.modal-box{padding:18px}.date-fields{gap:6px}.cover img{height:220px}}
 </style>
 </head>
 
@@ -214,128 +54,109 @@ input[type="text"], input[type="number"] {
 
 <!-- PAGE 1: COVER -->
 <section id="coverPage" class="page cover active">
-  <div>
-    <h1>🎁 A Special Birthday Surprise 🎁</h1>
-    <p>A beautiful birthday celebration is waiting for you!</p>
-
-    <img
-      src="images/img1.jpg"
-      alt="Birthday cover photo"
-      onerror="this.onerror=null;this.src='https://placehold.co/600x350/ff70a6/ffffff?text=Birthday+Surprise';"
-    >
-
-    <button onclick="openDetails()">
-      Open Your Surprise 💖
-    </button>
-  </div>
+<div id="coverSparkles"></div>
+<div class="cover-content">
+<h1>🎁 A Special Birthday Surprise 🎁</h1>
+<p>A beautiful birthday celebration is waiting for you!</p>
+<img src="images/img1.jpg" alt="Birthday cover photo"
+onerror="this.onerror=null;this.src='https://placehold.co/600x350/ff70a6/ffffff?text=Birthday+Surprise';">
+<button onclick="openDetails()">Open Your Surprise 💖</button>
+</div>
 </section>
 
 <!-- NAME AND DOB POPUP -->
 <div id="detailsModal" class="modal">
-  <form id="detailsForm" class="modal-box">
-    <button type="button" class="close-button"
-            onclick="closeDetails()">✕</button>
+<form id="detailsForm" class="modal-box">
+<button type="button" class="close-button" onclick="closeDetails()">✕</button>
+<h2>💝 Birthday Details</h2>
+<p>Enter the birthday person's details to continue.</p>
 
-    <h2>💝 Birthday Details</h2>
-    <p>Enter the birthday person's details to continue.</p>
+<label for="personName">Name</label>
+<input id="personName" type="text" placeholder="Enter name" maxlength="60" required>
 
-    <label for="personName">Name</label>
-    <input id="personName" type="text"
-           placeholder="Enter name" maxlength="60" required>
+<label>Date of Birth</label>
+<div class="date-fields">
+<div><label for="day">Day</label><input id="day" type="number" min="1" max="31" placeholder="DD" required></div>
+<div><label for="month">Month</label><input id="month" type="number" min="1" max="12" placeholder="MM" required></div>
+<div><label for="year">Year</label><input id="year" type="number" min="1900" placeholder="YYYY" required></div>
+</div>
 
-    <label>Date of Birth</label>
-    <div class="date-fields">
-      <div>
-        <label for="day">Day</label>
-        <input id="day" type="number" min="1" max="31"
-               placeholder="DD" inputmode="numeric" required>
-      </div>
-      <div>
-        <label for="month">Month</label>
-        <input id="month" type="number" min="1" max="12"
-               placeholder="MM" inputmode="numeric" required>
-      </div>
-      <div>
-        <label for="year">Year</label>
-        <input id="year" type="number" min="1900"
-               placeholder="YYYY" inputmode="numeric" required>
-      </div>
-    </div>
-
-    <p id="formError" role="alert"></p>
-
-    <button type="submit">Continue to Birthday Wishes →</button>
-  </form>
+<p id="formError" role="alert"></p>
+<button type="submit">Continue to Birthday Wishes →</button>
+</form>
 </div>
 
 <!-- PAGE 2: BIRTHDAY WISHES -->
 <section id="birthdayPage" class="page">
-  <h1>🎉 Happy Birthday, <span id="displayName"></span>! 🎉</h1>
+<h1>🎉 Happy Birthday, <span id="displayName"></span>! 🎉</h1>
 
-  <div class="info">
-    <p>💖 Name: <strong id="nameInfo"></strong></p>
-    <p>📅 Date of Birth: <strong id="dobInfo"></strong></p>
-    <p>🎂 Age: <strong id="ageInfo"></strong></p>
-    <h2>🌹 Special Birthday Wishes 🌹</h2>
-    <p id="wishMessage"></p>
-  </div>
+<div class="info">
+<p>💖 Name: <strong id="nameInfo"></strong></p>
+<p>📅 Date of Birth: <strong id="dobInfo"></strong></p>
+<p>🎂 Age: <strong id="ageInfo"></strong></p>
+<h2>🌹 Special Birthday Wishes 🌹</h2>
+<p id="wishMessage"></p>
+</div>
 
-  <h2>🎬 Choose Your Birthday Video</h2>
-  <p>Select one of the two options.</p>
+<h2>🎬 Choose Your Birthday Video</h2>
+<p>Select one of the two options.</p>
 
-  <div class="option-grid">
-    <div class="option">
-      <div class="emoji">🎂</div>
-      <h3>Option 1: Default Animation</h3>
-      <p>Use the 10 birthday photos already saved in your website.</p>
-      <p class="note">img1.jpg to img10.jpg</p>
-      <button id="defaultButton" onclick="useDefaultPhotos()">
-        Use Default Photos
-      </button>
-    </div>
+<div class="option-grid">
+<div class="option">
+<div class="emoji">🎂</div>
+<h3>Option 1: Advanced Animation</h3>
+<p>Use your 10 default birthday photos.</p>
+<p class="note">img1.jpg to img10.jpg</p>
+<button onclick="useDefaultPhotos()">Use Default Photos</button>
+</div>
 
-    <div class="option">
-      <div class="emoji">📸</div>
-      <h3>Option 2: My Own Photos</h3>
-      <p>Choose your own photos and turn them into a birthday slideshow.</p>
-      <button onclick="document.getElementById('imageInput').click()">
-        Choose My Photos
-      </button>
-    </div>
-  </div>
+<div class="option">
+<div class="emoji">📸</div>
+<h3>Option 2: My Own Photos</h3>
+<p>Make an animated birthday movie with your photos.</p>
+<button onclick="document.getElementById('imageInput').click()">Choose My Photos</button>
+</div>
+</div>
 
-  <div id="creatorPanel" class="panel" hidden>
-    <h2 id="creatorTitle">📸 Your Birthday Photos</h2>
+<div id="creatorPanel" class="panel" hidden>
+<h2 id="creatorTitle">✨ Birthday Movie Studio</h2>
 
-    <label for="imageInput">Choose images from your device</label>
-    <input id="imageInput" type="file" accept="image/*" multiple>
+<label for="imageInput">Choose images from your device</label>
+<input id="imageInput" type="file" accept="image/*" multiple>
 
-    <p id="imageCount">No images selected.</p>
-    <div id="photoGrid"></div>
+<p id="imageCount">No images selected.</p>
+<div id="photoGrid"></div>
 
-    <button id="createButton" disabled onclick="createVideo()">
-      🎬 Create Animated Video
-    </button>
+<label for="styleSelect">Choose animation style</label>
+<select id="styleSelect">
+<option value="cinematic">Cinematic Zoom + Glow</option>
+<option value="dream">Dreamy Floating + Sparkles</option>
+<option value="party">Party Confetti + Motion</option>
+<option value="elegant">Elegant Slow Zoom</option>
+</select>
 
-    <p id="status" role="status"></p>
+<label for="durationSelect">Seconds per photo</label>
+<select id="durationSelect">
+<option value="3">3 seconds</option>
+<option value="4">4 seconds</option>
+<option value="5">5 seconds</option>
+</select>
 
-    <h2>🎥 Preview Video</h2>
-    <video id="videoPreview" controls playsinline></video>
+<button id="createButton" disabled onclick="createVideo()">✨ Create Advanced Birthday Video</button>
 
-    <div>
-      <button id="downloadButton" disabled onclick="downloadVideo()">
-        ⬇ Download Video
-      </button>
-    </div>
+<p id="status" role="status"></p>
+<h2>🎥 Preview Video</h2>
+<video id="videoPreview" controls playsinline></video>
 
-    <p class="note">
-      The video includes birthday text, animated transitions, and your photos.
-      Video creation is done in your browser.
-    </p>
-  </div>
+<div>
+<button id="downloadButton" disabled onclick="downloadVideo()">⬇ Download Video</button>
+</div>
 
-  <button onclick="openDetails()">✏️ Edit Name and DOB</button>
-  <button onclick="showPage('coverPage')">🏠 Back to Cover</button>
+<p class="note">Preview your video before downloading. Video creation happens in your browser.</p>
+</div>
+
+<button onclick="openDetails()">✏️ Edit Name and DOB</button>
+<button onclick="showPage('coverPage')">🏠 Back to Cover</button>
 </section>
 
 <canvas id="renderCanvas" width="1280" height="720"></canvas>
@@ -344,475 +165,476 @@ input[type="text"], input[type="number"] {
 const $ = id => document.getElementById(id);
 
 let birthdayName = "";
-let birthDateString = "";
-let birthdayAge = 0;
-
 let selectedImages = [];
 let previewURLs = [];
 let videoBlob = null;
 let videoURL = null;
 let recording = false;
-let currentSource = "";
 
 function showPage(id) {
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.remove("active");
-  });
-  $(id).classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+ document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+ $(id).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function openDetails() {
-  $("formError").textContent = "";
-  $("detailsModal").classList.add("open");
-  $("personName").focus();
+ $("formError").textContent = "";
+ $("detailsModal").classList.add("open");
+ $("personName").focus();
 }
 
 function closeDetails() {
-  $("detailsModal").classList.remove("open");
+ $("detailsModal").classList.remove("open");
 }
 
-$("detailsModal").addEventListener("click", event => {
-  if (event.target === $("detailsModal")) closeDetails();
+$("detailsModal").addEventListener("click", e => {
+ if(e.target === $("detailsModal")) closeDetails();
 });
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeDetails();
+document.addEventListener("keydown", e => {
+ if(e.key === "Escape") closeDetails();
 });
 
-$("detailsForm").addEventListener("submit", event => {
-  event.preventDefault();
+$("detailsForm").addEventListener("submit", e => {
+ e.preventDefault();
 
-  birthdayName = $("personName").value.trim();
+ birthdayName = $("personName").value.trim();
 
-  const day = Number($("day").value);
-  const month = Number($("month").value);
-  const year = Number($("year").value);
+ const day = Number($("day").value);
+ const month = Number($("month").value);
+ const year = Number($("year").value);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+ const today = new Date();
+ today.setHours(0,0,0,0);
 
-  if (!birthdayName) {
-    $("formError").textContent = "Please enter the name.";
-    return;
-  }
+ if(!birthdayName) {
+  $("formError").textContent = "Please enter the name.";
+  return;
+ }
 
-  if (
-    !Number.isInteger(day) || !Number.isInteger(month) ||
-    !Number.isInteger(year) || day < 1 || day > 31 ||
-    month < 1 || month > 12 || year < 1900 ||
-    year > today.getFullYear()
-  ) {
-    $("formError").textContent = "Please enter a valid date.";
-    return;
-  }
+ if(!Number.isInteger(day) || !Number.isInteger(month) ||
+    !Number.isInteger(year) || day<1 || day>31 ||
+    month<1 || month>12 || year<1900 ||
+    year>today.getFullYear()) {
+  $("formError").textContent = "Please enter a valid date.";
+  return;
+ }
 
-  const birth = new Date(year, month - 1, day);
+ const birth = new Date(year,month-1,day);
 
-  if (
-    birth.getFullYear() !== year ||
-    birth.getMonth() !== month - 1 ||
-    birth.getDate() !== day ||
-    birth > today
-  ) {
-    $("formError").textContent = "That date is not valid. Please check it.";
-    return;
-  }
+ if(birth.getFullYear()!==year ||
+    birth.getMonth()!==month-1 ||
+    birth.getDate()!==day || birth>today) {
+  $("formError").textContent = "That date is not valid.";
+  return;
+ }
 
-  let age = today.getFullYear() - year;
+ let age = today.getFullYear()-year;
 
-  if (
-    today.getMonth() < month - 1 ||
-    (today.getMonth() === month - 1 && today.getDate() < day)
-  ) {
-    age--;
-  }
+ if(today.getMonth()<month-1 ||
+   (today.getMonth()===month-1 && today.getDate()<day)) age--;
 
-  birthdayAge = age;
-  birthDateString = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+ $("displayName").textContent = birthdayName;
+ $("nameInfo").textContent = birthdayName;
+ $("dobInfo").textContent = birth.toLocaleDateString(undefined,{
+  day:"2-digit",month:"long",year:"numeric"
+ });
+ $("ageInfo").textContent = age+" years old";
+ $("wishMessage").textContent =
+  `Dear ${birthdayName}, may your days be filled with love, happiness, success and wonderful memories. May your dreams come true. Happy birthday! 💖`;
 
-  $("displayName").textContent = birthdayName;
-  $("nameInfo").textContent = birthdayName;
-  $("dobInfo").textContent = birth.toLocaleDateString(undefined, {
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  });
-  $("ageInfo").textContent = age + " years old";
-  $("wishMessage").textContent =
-    `Dear ${birthdayName}, may your days be filled with love, happiness, ` +
-    `success and wonderful memories. May your dreams come true. Happy birthday! 💖`;
-
-  closeDetails();
-  showPage("birthdayPage");
+ closeDetails();
+ showPage("birthdayPage");
 });
 
-/* Remove old previews and generated video */
 function clearVideo() {
-  if (videoURL) URL.revokeObjectURL(videoURL);
-  videoURL = null;
-  videoBlob = null;
+ if(videoURL) URL.revokeObjectURL(videoURL);
+ videoURL = null;
+ videoBlob = null;
 
-  $("videoPreview").pause();
-  $("videoPreview").removeAttribute("src");
-  $("videoPreview").load();
-
-  $("downloadButton").disabled = true;
-  $("status").textContent = "";
+ $("videoPreview").pause();
+ $("videoPreview").removeAttribute("src");
+ $("videoPreview").load();
+ $("downloadButton").disabled = true;
+ $("status").textContent = "";
 }
 
 function clearPhotoPreviews() {
-  previewURLs.forEach(url => URL.revokeObjectURL(url));
-  previewURLs = [];
-  $("photoGrid").replaceChildren();
+ previewURLs.forEach(u => URL.revokeObjectURL(u));
+ previewURLs = [];
+ $("photoGrid").replaceChildren();
 }
 
-/* Option 1: load images/img1.jpg through images/img10.jpg */
+function loadImage(src) {
+ return new Promise((resolve,reject) => {
+  const img = new Image();
+  img.onload = () => resolve(img);
+  img.onerror = () => reject(new Error("Could not load "+src));
+  img.src = src;
+ });
+}
+
+function addPreview(image,name) {
+ const card = document.createElement("div");
+ card.className = "photo-card";
+
+ const img = document.createElement("img");
+ img.src = image.src;
+ img.alt = name;
+
+ const caption = document.createElement("small");
+ caption.textContent = name;
+
+ card.append(img,caption);
+ $("photoGrid").appendChild(card);
+}
+
+/* OPTION 1: DEFAULT PHOTOS */
 async function useDefaultPhotos() {
-  if (recording) return;
+ if(recording) return;
 
-  currentSource = "default";
+ selectedImages = [];
+ clearVideo();
+ clearPhotoPreviews();
+
+ $("creatorPanel").hidden = false;
+ $("creatorTitle").textContent = "🎂 Default Birthday Photos";
+ $("imageCount").textContent = "Loading photos...";
+ $("createButton").disabled = true;
+ $("imageInput").value = "";
+ $("creatorPanel").scrollIntoView({behavior:"smooth"});
+
+ try {
+  for(let i=1;i<=10;i++) {
+   $("status").textContent = `Loading photo ${i} of 10...`;
+   const image = await loadImage(`images/img${i}.jpg`);
+   selectedImages.push({image,name:`img${i}.jpg`});
+   addPreview(image,`img${i}.jpg`);
+  }
+
+  $("imageCount").textContent = "10 default photos ready.";
+  $("status").textContent = "Choose an animation style and create your video.";
+  $("createButton").disabled = false;
+
+ } catch(error) {
   selectedImages = [];
-  clearVideo();
-  clearPhotoPreviews();
-
-  $("creatorPanel").hidden = false;
-  $("creatorTitle").textContent = "🎂 Default Birthday Photos";
-  $("imageCount").textContent = "Loading default photos...";
   $("createButton").disabled = true;
-  $("imageInput").value = "";
+  $("status").textContent =
+   error.message+" — Check that img1.jpg through img10.jpg are inside the images folder.";
+ }
+}
 
-  $("creatorPanel").scrollIntoView({ behavior: "smooth" });
+/* OPTION 2: YOUR OWN PHOTOS */
+$("imageInput").addEventListener("change",async e => {
+ if(recording) return;
 
+ clearVideo();
+ clearPhotoPreviews();
+ selectedImages = [];
+
+ $("creatorPanel").hidden = false;
+ $("creatorTitle").textContent = "📸 Your Uploaded Photos";
+ $("createButton").disabled = true;
+
+ const files = Array.from(e.target.files || [])
+  .filter(f => f.type.startsWith("image/"));
+
+ if(!files.length) {
+  $("imageCount").textContent = "No images selected.";
+  return;
+ }
+
+ $("imageCount").textContent = `Loading ${files.length} images...`;
+
+ for(const file of files) {
   try {
-    for (let i = 1; i <= 10; i++) {
-      $("status").textContent = `Loading image ${i} of 10...`;
+   const url = URL.createObjectURL(file);
+   previewURLs.push(url);
 
-      const image = await loadImage(`images/img${i}.jpg`);
-
-      selectedImages.push({
-        image,
-        name: `img${i}.jpg`
-      });
-
-      addPreview(image, `img${i}.jpg`);
-    }
-
-    $("imageCount").textContent =
-      `${selectedImages.length} default photos ready.`;
-
-    $("status").textContent = "All default photos are ready!";
-    $("createButton").disabled = false;
-
-  } catch (error) {
-    selectedImages = [];
-    $("createButton").disabled = true;
-    $("imageCount").textContent = "Could not load all default photos.";
-    $("status").textContent =
-      error.message +
-      " Check that img1.jpg through img10.jpg exist inside the images folder.";
+   const image = await loadImage(url);
+   selectedImages.push({image,name:file.name});
+   addPreview(image,file.name);
+  } catch(error) {
+   console.warn(error);
   }
-}
+ }
 
-function loadImage(source) {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
+ $("imageCount").textContent = `${selectedImages.length} photo(s) ready.`;
+ $("status").textContent = selectedImages.length
+  ? "Your photos are ready to animate."
+  : "No valid images could be loaded.";
 
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(
-      new Error("Could not load " + source)
-    );
-
-    image.src = source;
-  });
-}
-
-/* Option 2: user-selected images */
-$("imageInput").addEventListener("change", async event => {
-  if (recording) return;
-
-  currentSource = "custom";
-  clearVideo();
-  clearPhotoPreviews();
-  selectedImages = [];
-
-  $("creatorPanel").hidden = false;
-  $("creatorTitle").textContent = "📸 Your Uploaded Photos";
-  $("createButton").disabled = true;
-
-  const files = Array.from(event.target.files || [])
-    .filter(file => file.type.startsWith("image/"));
-
-  if (!files.length) {
-    $("imageCount").textContent = "No images selected.";
-    return;
-  }
-
-  $("imageCount").textContent = `Loading ${files.length} images...`;
-
-  for (const file of files) {
-    try {
-      const url = URL.createObjectURL(file);
-      previewURLs.push(url);
-
-      const image = await loadImage(url);
-
-      selectedImages.push({
-        image,
-        name: file.name
-      });
-
-      addPreview(image, file.name);
-    } catch (error) {
-      console.warn(error);
-    }
-  }
-
-  $("imageCount").textContent =
-    `${selectedImages.length} image(s) ready.`;
-
-  $("status").textContent = selectedImages.length
-    ? "Your photos are ready to animate."
-    : "No valid images could be loaded.";
-
-  $("createButton").disabled = selectedImages.length === 0;
+ $("createButton").disabled = selectedImages.length===0;
 });
 
-function addPreview(image, name) {
-  const card = document.createElement("div");
-  card.className = "photo-card";
+/* ADVANCED PHOTO MOVEMENT */
+function drawPhoto(ctx,image,t,style) {
+ const w=ctx.canvas.width,h=ctx.canvas.height;
+ const imageRatio=image.width/image.height;
+ const canvasRatio=w/h;
 
-  const img = document.createElement("img");
-  img.src = image.src;
-  img.alt = name;
+ let dw,dh;
+ if(imageRatio>canvasRatio) {
+  dh=h; dw=h*imageRatio;
+ } else {
+  dw=w; dh=w/imageRatio;
+ }
 
-  const caption = document.createElement("small");
-  caption.textContent = name;
+ let zoom=1.05,px=0,py=0,rotation=0;
 
-  card.append(img, caption);
-  $("photoGrid").appendChild(card);
+ if(style==="cinematic") {
+  zoom=1.04+0.15*t;
+  px=Math.sin(t*Math.PI*2)*12;
+  py=Math.cos(t*Math.PI)*8;
+ }
+ else if(style==="dream") {
+  zoom=1.08+0.05*Math.sin(t*Math.PI*2);
+  px=Math.sin(t*6)*20;
+  py=Math.cos(t*5)*14;
+  rotation=Math.sin(t*Math.PI*2)*0.008;
+ }
+ else if(style==="party") {
+  zoom=1.02+0.11*t;
+  px=Math.sin(t*8)*18;
+  py=Math.cos(t*7)*12;
+  rotation=Math.sin(t*6)*0.006;
+ }
+ else {
+  zoom=1.02+0.07*t;
+  px=Math.sin(t*Math.PI)*5;
+ }
+
+ ctx.save();
+ ctx.translate(w/2+px,h/2+py);
+ ctx.rotate(rotation);
+ ctx.scale(zoom,zoom);
+ ctx.drawImage(image,-dw/2,-dh/2,dw,dh);
+ ctx.restore();
 }
 
-/* Draw one photo with a fade transition and birthday text */
-function drawFrame(image, progress, index, total) {
-  const canvas = $("renderCanvas");
-  const ctx = canvas.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
+/* DRAW ANIMATED VIDEO FRAME */
+function drawFrame(image,progress,index,total,style) {
+ const canvas=$("renderCanvas");
+ const ctx=canvas.getContext("2d");
+ const w=canvas.width,h=canvas.height;
 
-  ctx.fillStyle = "#21112d";
-  ctx.fillRect(0, 0, width, height);
+ const palettes={
+  cinematic:["#190b2d","#ff4fa3","#7c4dff"],
+  dream:["#12213a","#a7f3ff","#e9a8ff"],
+  party:["#230b36","#ffcf56","#ff3e9d"],
+  elegant:["#080c22","#f7d58b","#c9a7ff"]
+ };
 
-  const scale = Math.min(
-    width / image.width,
-    height / image.height
-  );
+ const colors=palettes[style]||palettes.cinematic;
 
-  const drawWidth = image.width * scale;
-  const drawHeight = image.height * scale;
+ const bg=ctx.createLinearGradient(0,0,w,h);
+ bg.addColorStop(0,colors[0]);
+ bg.addColorStop(1,colors[2]);
+ ctx.fillStyle=bg;
+ ctx.fillRect(0,0,w,h);
 
-  const x = (width - drawWidth) / 2;
-  const y = (height - drawHeight) / 2;
+ /* Photo entrance */
+ ctx.save();
+ ctx.globalAlpha=Math.min(1,progress/0.45);
+ drawPhoto(ctx,image,progress/3,style);
+ ctx.restore();
 
-  // Fade in each new photo.
-  ctx.globalAlpha = Math.min(1, progress / 0.65);
-  ctx.drawImage(image, x, y, drawWidth, drawHeight);
-  ctx.globalAlpha = 1;
+ /* Cinematic dark edges */
+ const vignette=ctx.createRadialGradient(w/2,h/2,100,w/2,h/2,w*.75);
+ vignette.addColorStop(0,"rgba(0,0,0,0)");
+ vignette.addColorStop(1,"rgba(0,0,0,.52)");
+ ctx.fillStyle=vignette;
+ ctx.fillRect(0,0,w,h);
 
-  // Darken the lower area so the birthday text is readable.
-  const gradient = ctx.createLinearGradient(0, height * 0.6, 0, height);
-  gradient.addColorStop(0, "rgba(0,0,0,0)");
-  gradient.addColorStop(1, "rgba(0,0,0,0.8)");
+ /* Text background */
+ const lower=ctx.createLinearGradient(0,h*.55,0,h);
+ lower.addColorStop(0,"rgba(0,0,0,0)");
+ lower.addColorStop(1,"rgba(0,0,0,.78)");
+ ctx.fillStyle=lower;
+ ctx.fillRect(0,h*.52,w,h*.48);
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, height * 0.55, width, height * 0.45);
+ /* Sparkles and confetti */
+ const count=style==="party"?90:style==="dream"?45:28;
 
-  ctx.textAlign = "center";
-  ctx.fillStyle = "white";
-  ctx.shadowColor = "#000";
-  ctx.shadowBlur = 8;
+ for(let j=0;j<count;j++) {
+  const seed=j*97.13+index*31.7;
+  const x=((Math.sin(seed)*.5+.5)*w+
+    progress*(style==="party"?75:22))%w;
+  const y=((Math.cos(seed*1.7)*.5+.5)*h+
+    progress*35+j*4)%h;
+  const r=style==="party"?2+(j%4):1.5+(j%3)*.7;
 
-  ctx.font = "bold 54px Arial";
-  ctx.fillText(
-    `Happy Birthday, ${birthdayName}!`,
-    width / 2, height - 105, width - 70
-  );
+  ctx.globalAlpha=.25+.55*(.5+.5*Math.sin(progress*5+j));
+  ctx.fillStyle=colors[1];
 
-  ctx.font = "30px Arial";
-  ctx.fillText(
-    "Wishing You Love & Happiness!",
-    width / 2, height - 52, width - 70
-  );
+  if(style==="party") {
+   ctx.save();
+   ctx.translate(x,y);
+   ctx.rotate(progress*3+j);
+   ctx.fillRect(-r,-r*2,r*2,r*4);
+   ctx.restore();
+  } else {
+   ctx.beginPath();
+   ctx.arc(x,y,r,0,Math.PI*2);
+   ctx.fill();
+  }
+ }
+ ctx.globalAlpha=1;
 
-  ctx.shadowBlur = 0;
-  ctx.textAlign = "right";
-  ctx.font = "22px Arial";
-  ctx.fillText(`${index + 1} / ${total}`, width - 25, 35);
+ /* Moving light beam */
+ if(style==="cinematic"||style==="dream") {
+  const sx=((progress/3)*1.5-.25)*w;
+  const shine=ctx.createLinearGradient(sx-100,0,sx+100,0);
+  shine.addColorStop(0,"rgba(255,255,255,0)");
+  shine.addColorStop(.5,"rgba(255,255,255,.12)");
+  shine.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.fillStyle=shine;
+  ctx.fillRect(0,0,w,h);
+ }
+
+ /* Animated birthday title */
+ const entrance=Math.min(1,Math.max(0,(progress-.25)/.55));
+
+ ctx.save();
+ ctx.globalAlpha=entrance;
+ ctx.translate(w/2,h-112+(1-entrance)*35);
+ ctx.textAlign="center";
+ ctx.shadowColor=colors[1];
+ ctx.shadowBlur=style==="elegant"?12:24;
+ ctx.fillStyle="#fff";
+ ctx.font="bold 58px Arial";
+ ctx.fillText(`Happy Birthday, ${birthdayName}!`,0,0,w-80);
+
+ ctx.shadowBlur=8;
+ ctx.font="30px Arial";
+ ctx.fillStyle=colors[1];
+ ctx.fillText("✦ Wishing You Love & Happiness ✦",0,49,w-80);
+ ctx.restore();
+
+ /* Photo number */
+ ctx.textAlign="right";
+ ctx.font="bold 22px Arial";
+ ctx.fillStyle="#fff";
+ ctx.shadowBlur=5;
+ ctx.fillText(`${index+1} / ${total}`,w-28,38);
+ ctx.shadowBlur=0;
+
+ /* Glowing border */
+ ctx.strokeStyle=colors[1];
+ ctx.lineWidth=5;
+ ctx.globalAlpha=.45+.35*Math.sin(progress*5);
+ ctx.strokeRect(12,12,w-24,h-24);
+ ctx.globalAlpha=1;
 }
 
 function getMimeType() {
-  if (!window.MediaRecorder) return "";
-
-  const types = [
-    "video/webm;codecs=vp9",
-    "video/webm;codecs=vp8",
-    "video/webm"
-  ];
-
-  return types.find(type => MediaRecorder.isTypeSupported(type)) || "";
+ if(!window.MediaRecorder) return "";
+ const types=["video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
+ return types.find(t=>MediaRecorder.isTypeSupported(t))||"";
 }
 
 function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+ return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
-/* Create a downloadable video from the selected photos */
+/* CREATE THE ANIMATED VIDEO */
 async function createVideo() {
-  if (recording || !selectedImages.length) return;
+ if(recording||!selectedImages.length) return;
 
-  const canvas = $("renderCanvas");
+ const canvas=$("renderCanvas");
 
-  if (!canvas.captureStream || !window.MediaRecorder) {
-    alert("Video recording is not supported here. Try an updated Chrome or Edge browser.");
-    return;
+ if(!canvas.captureStream||!window.MediaRecorder) {
+  alert("Video recording is not supported. Try an updated Chrome or Edge browser.");
+  return;
+ }
+
+ const mimeType=getMimeType();
+
+ if(!mimeType) {
+  alert("This browser does not support WebM video recording.");
+  return;
+ }
+
+ recording=true;
+ $("createButton").disabled=true;
+ $("downloadButton").disabled=true;
+ clearVideo();
+
+ let stream;
+
+ try {
+  $("status").textContent="Preparing your animated birthday movie...";
+
+  const style=$("styleSelect").value;
+  const seconds=Number($("durationSelect").value);
+
+  stream=canvas.captureStream(30);
+
+  const chunks=[];
+  const recorder=new MediaRecorder(stream,{
+   mimeType,
+   videoBitsPerSecond:5500000
+  });
+
+  const stopped=new Promise((resolve,reject)=>{
+   recorder.ondataavailable=e=>{
+    if(e.data&&e.data.size) chunks.push(e.data);
+   };
+   recorder.onerror=()=>reject(new Error("The browser failed to record the video."));
+   recorder.onstop=()=>resolve(new Blob(chunks,{type:mimeType}));
+  });
+
+  const totalSeconds=selectedImages.length*seconds;
+  recorder.start(250);
+
+  for(let i=0;i<selectedImages.length;i++) {
+   const photoStart=performance.now();
+
+   while(true) {
+    const elapsed=(performance.now()-photoStart)/1000;
+    const progress=Math.min(elapsed,seconds);
+
+    drawFrame(selectedImages[i].image,progress,i,selectedImages.length,style);
+
+    const percent=Math.min(99,Math.floor(
+      (i*seconds+progress)/totalSeconds*100
+    ));
+
+    $("status").textContent=
+      `Creating ${style} animation... ${percent}%`;
+
+    if(elapsed>=seconds) break;
+
+    await new Promise(resolve=>requestAnimationFrame(resolve));
+   }
   }
 
-  const mimeType = getMimeType();
+  drawFrame(
+   selectedImages[selectedImages.length-1].image,
+   seconds,selectedImages.length-1,selectedImages.length,style
+  );
 
-  if (!mimeType) {
-    alert("This browser does not support WebM video recording.");
-    return;
+  await wait(500);
+  recorder.stop();
+
+  videoBlob=await stopped;
+
+  if(!videoBlob||!videoBlob.size) {
+   throw new Error("The generated video is empty.");
   }
 
-  recording = true;
-  $("createButton").disabled = true;
-  $("downloadButton").disabled = true;
-  clearVideo();
+  videoURL=URL.createObjectURL(videoBlob);
+  $("videoPreview").src=videoURL;
+  $("videoPreview").load();
+  $("downloadButton").disabled=false;
 
-  let stream;
+  $("status").textContent=
+   `Your animated video is ready! ${selectedImages.length} photos included. Preview it above, then download.`;
 
-  try {
-    $("status").textContent = "Starting video creation...";
-
-    stream = canvas.captureStream(30);
-
-    const chunks = [];
-    const recorder = new MediaRecorder(stream, {
-      mimeType,
-      videoBitsPerSecond: 4500000
-    });
-
-    const stopped = new Promise((resolve, reject) => {
-      recorder.ondataavailable = event => {
-        if (event.data && event.data.size) chunks.push(event.data);
-      };
-
-      recorder.onerror = () => reject(
-        new Error("The browser failed to record the video.")
-      );
-
-      recorder.onstop = () => {
-        resolve(new Blob(chunks, { type: mimeType }));
-      };
-    });
-
-    const secondsPerPhoto = 3;
-    const totalSeconds = selectedImages.length * secondsPerPhoto;
-
-    recorder.start(250);
-
-    const start = performance.now();
-
-    for (let i = 0; i < selectedImages.length; i++) {
-      const photoStart = performance.now();
-
-      while (true) {
-        const elapsed = (performance.now() - photoStart) / 1000;
-
-        drawFrame(
-          selectedImages[i].image,
-          Math.min(elapsed, secondsPerPhoto),
-          i,
-          selectedImages.length
-        );
-
-        const overall = i * secondsPerPhoto +
-          Math.min(elapsed, secondsPerPhoto);
-
-        const percent = Math.min(
-          99,
-          Math.floor(overall / totalSeconds * 100)
-        );
-
-        $("status").textContent =
-          `Creating birthday video... ${percent}%`;
-
-        if (elapsed >= secondsPerPhoto) break;
-
-        await new Promise(resolve => requestAnimationFrame(resolve));
-      }
-    }
-
-    // Keep the final frame visible briefly before stopping.
-    drawFrame(
-      selectedImages[selectedImages.length - 1].image,
-      secondsPerPhoto,
-      selectedImages.length - 1,
-      selectedImages.length
-    );
-
-    await wait(400);
-    recorder.stop();
-
-    videoBlob = await stopped;
-
-    if (!videoBlob || videoBlob.size === 0) {
-      throw new Error("The generated video is empty.");
-    }
-
-    videoURL = URL.createObjectURL(videoBlob);
-
-    $("videoPreview").src = videoURL;
-    $("videoPreview").load();
-
-    $("downloadButton").disabled = false;
-    $("status").textContent =
-      `Video ready! ${selectedImages.length} photos included.`;
-
-  } catch (error) {
-    console.error(error);
-    $("status").textContent = "Video creation failed: " + error.message;
-    alert("Could not create the video. Try fewer or smaller photos.");
-  } finally {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
-    }
-
-    recording = false;
-    $("createButton").disabled = selectedImages.length === 0;
-  }
-}
-
-function downloadVideo() {
-  if (!videoBlob || !videoURL) {
-    alert("Create your video first.");
-    return;
-  }
-
-  const safeName = birthdayName
-    .replace(/[^a-z0-9_-]/gi, "-")
-    .replace(/-+/g, "-");
-
-  const link = document.createElement("a");
-  link.href = videoURL;
-  link.download = `birthday-${safeName || "surprise"}.webm`;
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-}
-</script>
-
-</body>
-  </html>
-  
+ } catch(error) {
+  console.error(error);
+  $("status").textContent="Video creation failed: "+error.message;
+  alert("Could not create the video. Try fewer or smaller photos.");
+ } finally {
+  if(stream) stream.getTracks().forEach(t=>t.stop());
+  recording=f

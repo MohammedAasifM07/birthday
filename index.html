@@ -1,640 +1,882 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Birthday Surprise 🎂</title>
+<title>Birthday Surprise 🎂</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;text-align:center;color:#462044;background:linear-gradient(135deg,#fff0f6,#e9e2ff)}
-button,input,select{font:inherit}
-button{border:0;border-radius:25px;padding:13px 20px;margin:7px;background:linear-gradient(110deg,#ff3e9d,#845ec2);color:white;font-weight:bold;cursor:pointer;box-shadow:0 7px 18px #a83c8750}
-button:hover{filter:brightness(1.1);transform:translateY(-2px)}
-button:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.page{display:none;min-height:100vh;padding:25px 15px}
-.page.active{display:block}
-h1{color:#d52b82}
-.cover{min-height:100vh;display:flex!important;align-items:center;justify-content:center;padding:20px;color:white;position:relative;overflow:hidden;background:radial-gradient(circle at 15% 20%,#ff9ecb,transparent 35%),radial-gradient(circle at 80% 80%,#a28bff,transparent 40%),linear-gradient(135deg,#ff70a6,#845ec2);background-size:150% 150%;animation:bgShift 10s ease-in-out infinite alternate}
-@keyframes bgShift{to{background-position:100% 0}}
-.cover h1{color:white;text-shadow:0 0 20px #fff8,0 4px 12px #7c1d68}
-.cover img{width:min(90%,430px);height:260px;object-fit:cover;border-radius:22px;margin:20px auto;display:block;border:3px solid #ffffffa8;box-shadow:0 15px 45px #3d124c66;animation:floatPhoto 4s ease-in-out infinite}
-@keyframes floatPhoto{50%{transform:translateY(-8px) rotate(.5deg)}}
-.cover button{background:white;color:#b52478}
-.cover-content{position:relative;z-index:2;max-width:800px}
-.panel{max-width:950px;margin:20px auto;padding:22px;background:#ffffffeb;border-radius:20px;box-shadow:0 6px 25px #53315b1a}
-.info{max-width:650px;margin:20px auto;padding:18px;border-radius:16px;background:white;line-height:1.8;box-shadow:0 6px 22px #53315b12}
-label{display:block;text-align:left;font-weight:bold;margin-top:12px}
-input[type=text],input[type=number],input[type=file],select{width:100%;padding:13px;margin:8px 0;border:1px solid #d9b9d5;border-radius:10px;background:white}
-.date-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.option-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;max-width:850px;margin:20px auto}
-.option{padding:20px;background:white;border-radius:18px;box-shadow:0 5px 20px #53315b1a}
-.option .emoji{font-size:48px}
-#photoGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:12px;margin:20px auto}
-.photo-card{padding:7px;background:white;border-radius:12px;overflow-wrap:anywhere;box-shadow:0 4px 14px #53315b12}
-.photo-card img{width:100%;height:135px;object-fit:cover;border-radius:8px}
-.photo-card small{display:block;padding:6px}
-#videoPreview{width:100%;max-width:800px;margin:15px auto;background:#160b20;border-radius:14px}
-#renderCanvas{display:none}
-#status{font-weight:bold;line-height:1.6;overflow-wrap:anywhere}
-.note{color:#6b536b;font-size:.9rem;line-height:1.6}
-.modal{display:none;position:fixed;z-index:1000;inset:0;padding:18px;background:#180b25df;align-items:center;justify-content:center;overflow-y:auto}
-.modal.open{display:flex}
-.modal-box{width:100%;max-width:480px;background:white;border-radius:22px;padding:25px;box-shadow:0 10px 40px #0005}
-.modal-box h2{color:#d52b82}
-.close-button{float:right;margin:0;padding:8px 13px;background:#614269}
-.sparkle{position:absolute;pointer-events:none;z-index:1;animation:drift 7s linear infinite;opacity:.75}
-@keyframes drift{0%{transform:translateY(30vh) rotate(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-120vh) rotate(360deg);opacity:0}}
-@media(max-width:420px){.modal-box{padding:18px}.date-fields{gap:6px}.cover img{height:220px}}
+* { box-sizing: border-box; }
+
+:root {
+  --pink: #ff4f91;
+  --purple: #a855f7;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: linear-gradient(135deg, #190d2d, #48165d, #a62d77);
+  min-height: 100vh;
+}
+
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+.hidden { display: none !important; }
+
+.page {
+  min-height: 100vh;
+  padding: 24px 15px 45px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cover {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-content {
+  width: 100%;
+  max-width: 750px;
+  margin: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cake {
+  font-size: clamp(80px, 18vw, 130px);
+  animation: float 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px #ff8ac2);
+}
+
+h1 {
+  font-size: clamp(32px, 7vw, 60px);
+  line-height: 1.2;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #ffe29a, #ff8dc7, #d8c0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: #ffe7f4;
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+.primary-btn {
+  padding: 14px 24px;
+  border-radius: 40px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(100deg, #ff4f91, #a855f7);
+  box-shadow: 0 8px 25px #ff4f9155;
+  transition: transform .2s;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+}
+
+.secondary-btn {
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 1px solid #ffffff55;
+  background: #ffffff18;
+  color: white;
+}
+
+.next-step {
+  margin-top: 18px;
+  text-align: center;
+  color: #ffe8f5;
+}
+
+.next-step p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.arrow {
+  display: block;
+  font-size: 28px;
+  animation: arrowDown 1s infinite;
+}
+
+.arrow:last-child { animation-delay: .25s; }
+
+.card {
+  max-width: 950px;
+  width: 100%;
+  margin: 20px auto;
+  padding: clamp(18px, 5vw, 38px);
+  border-radius: 24px;
+  background: #ffffff13;
+  border: 1px solid #ffffff30;
+  box-shadow: 0 15px 50px #10051c44;
+  backdrop-filter: blur(12px);
+}
+
+.card h2 {
+  text-align: center;
+  font-size: clamp(24px, 5vw, 36px);
+  margin-top: 0;
+}
+
+.muted {
+  color: #f3d8eb;
+  line-height: 1.7;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input[type="text"], select {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  border-radius: 12px;
+  border: 1px solid #ffffff55;
+  background: white;
+  color: #24102f;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.dob-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.error {
+  color: #ffe29a;
+  text-align: center;
+  min-height: 20px;
+}
+
+.wish-message {
+  text-align: center;
+  font-size: clamp(17px, 4vw, 23px);
+  line-height: 1.8;
+  color: #ffe5f4;
+}
+
+.name-display {
+  color: #ffe29a;
+  overflow-wrap: anywhere;
+}
+
+.wish-emoji {
+  text-align: center;
+  font-size: 42px;
+  animation: float 2s infinite;
+}
+
+.photo-options {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px;
+  border: 1px solid #ffffff55;
+  border-radius: 12px;
+  background: #ffffff12;
+}
+
+.option-label input { accent-color: #ff4f91; }
+
+.upload-box {
+  padding: 18px;
+  border: 2px dashed #ffffff65;
+  border-radius: 18px;
+  text-align: center;
+}
+
+input[type="file"] {
+  display: block;
+  max-width: 100%;
+  margin-top: 14px;
+  color: white;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.photo-tile {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #351646;
+  border: 1px solid #ffffff30;
+}
+
+.photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-tile span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 7px;
+  background: #15071ccc;
+  text-align: center;
+  font-size: 12px;
+}
+
+.remove-photo {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  border: 0;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  background: #e11d48;
+  color: white;
+  z-index: 2;
+}
+
+#videoPreview {
+  width: 100%;
+  max-height: 520px;
+  display: block;
+  background: #10051c;
+  border-radius: 16px;
+}
+
+.video-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+
+.progress-wrap {
+  height: 10px;
+  background: #ffffff22;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+#progressBar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff4f91, #ffe29a);
+}
+
+.small-note {
+  font-size: 13px;
+  color: #eed9ee;
+  line-height: 1.6;
+}
+
+.float-item {
+  position: absolute;
+  pointer-events: none;
+  opacity: .7;
+  animation: floatUp linear infinite;
+  z-index: 1;
+}
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  width: 9px;
+  height: 15px;
+  pointer-events: none;
+  z-index: 20;
+  animation: confettiFall linear forwards;
+}
+
+footer {
+  text-align: center;
+  padding: 22px;
+  color: #f2d7eb;
+  font-size: 13px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes arrowDown {
+  0%, 100% { transform: translateY(0); opacity: .55; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+@keyframes floatUp {
+  from { transform: translateY(110vh) rotate(0); }
+  to { transform: translateY(-20vh) rotate(360deg); }
+}
+
+@keyframes confettiFall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: .2; }
+}
+
+@media (min-width: 650px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .full-width { grid-column: 1 / -1; }
+}
+
+@media (max-width: 420px) {
+  .card { padding: 18px 13px; }
+  .dob-grid { gap: 5px; }
+  .dob-grid select { padding: 11px 4px; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- PAGE 1: COVER -->
-<section id="coverPage" class="page cover active">
-<div id="coverSparkles"></div>
-<div class="cover-content">
-<h1>🎁 A Special Birthday Surprise 🎁</h1>
-<p>A beautiful birthday celebration is waiting for you!</p>
-<img src="images/img1.jpg" alt="Birthday cover photo"
-onerror="this.onerror=null;this.src='https://placehold.co/600x350/ff70a6/ffffff?text=Birthday+Surprise';">
-<button onclick="openDetails()">Open Your Surprise 💖</button>
-</div>
+<!-- COVER -->
+<section id="cover" class="page center">
+  <div class="cover-content">
+    <div class="cake">🎂</div>
+    <h1 class="gradient-text">A Special Birthday Surprise</h1>
+
+    <p class="subtitle">
+      A beautiful surprise filled with happiness, love,
+      special memories and endless smiles. 💖
+    </p>
+
+    <button type="button" id="openSurpriseBtn" class="primary-btn">
+      Open Your Surprise 💖
+    </button>
+
+    <div class="next-step">
+      <span class="arrow">⬇</span>
+      <p>Click above to begin your surprise</p>
+      <span class="arrow">⬇</span>
+    </div>
+  </div>
 </section>
 
-<!-- NAME AND DOB POPUP -->
-<div id="detailsModal" class="modal">
-<form id="detailsForm" class="modal-box">
-<button type="button" class="close-button" onclick="closeDetails()">✕</button>
-<h2>💝 Birthday Details</h2>
-<p>Enter the birthday person's details to continue.</p>
+<!-- DETAILS -->
+<section id="detailsSection" class="page hidden">
+  <div class="card">
+    <h2>💌 Personalize Your Surprise</h2>
+    <p class="muted" style="text-align:center">
+      Enter the person's name and date of birth.
+    </p>
 
-<label for="personName">Name</label>
-<input id="personName" type="text" placeholder="Enter name" maxlength="60" required>
+    <form id="detailsForm">
+      <div class="form-grid">
+        <div class="full-width">
+          <label for="personName">Person's Name</label>
+          <input id="personName" type="text" maxlength="70"
+                 placeholder="Enter name" required>
+        </div>
 
-<label>Date of Birth</label>
-<div class="date-fields">
-<div><label for="day">Day</label><input id="day" type="number" min="1" max="31" placeholder="DD" required></div>
-<div><label for="month">Month</label><input id="month" type="number" min="1" max="12" placeholder="MM" required></div>
-<div><label for="year">Year</label><input id="year" type="number" min="1900" placeholder="YYYY" required></div>
-</div>
+        <div class="full-width">
+          <label>Date of Birth</label>
+          <div class="dob-grid">
+            <div>
+              <label for="birthDay">Day</label>
+              <select id="birthDay" required>
+                <option value="">Day</option>
+              </select>
+            </div>
+            <div>
+              <label for="birthMonth">Month</label>
+              <select id="birthMonth" required>
+                <option value="">Month</option>
+              </select>
+            </div>
+            <div>
+              <label for="birthYear">Year</label>
+              <select id="birthYear" required>
+                <option value="">Year</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<p id="formError" role="alert"></p>
-<button type="submit">Continue to Birthday Wishes →</button>
-</form>
-</div>
+      <p id="formError" class="error" role="alert"></p>
 
-<!-- PAGE 2: BIRTHDAY WISHES -->
-<section id="birthdayPage" class="page">
-<h1>🎉 Happy Birthday, <span id="displayName"></span>! 🎉</h1>
-
-<div class="info">
-<p>💖 Name: <strong id="nameInfo"></strong></p>
-<p>📅 Date of Birth: <strong id="dobInfo"></strong></p>
-<p>🎂 Age: <strong id="ageInfo"></strong></p>
-<h2>🌹 Special Birthday Wishes 🌹</h2>
-<p id="wishMessage"></p>
-</div>
-
-<h2>🎬 Choose Your Birthday Video</h2>
-<p>Select one of the two options.</p>
-
-<div class="option-grid">
-<div class="option">
-<div class="emoji">🎂</div>
-<h3>Option 1: Advanced Animation</h3>
-<p>Use your 10 default birthday photos.</p>
-<p class="note">img1.jpg to img10.jpg</p>
-<button onclick="useDefaultPhotos()">Use Default Photos</button>
-</div>
-
-<div class="option">
-<div class="emoji">📸</div>
-<h3>Option 2: My Own Photos</h3>
-<p>Make an animated birthday movie with your photos.</p>
-<button onclick="document.getElementById('imageInput').click()">Choose My Photos</button>
-</div>
-</div>
-
-<div id="creatorPanel" class="panel" hidden>
-<h2 id="creatorTitle">✨ Birthday Movie Studio</h2>
-
-<label for="imageInput">Choose images from your device</label>
-<input id="imageInput" type="file" accept="image/*" multiple>
-
-<p id="imageCount">No images selected.</p>
-<div id="photoGrid"></div>
-
-<label for="styleSelect">Choose animation style</label>
-<select id="styleSelect">
-<option value="cinematic">Cinematic Zoom + Glow</option>
-<option value="dream">Dreamy Floating + Sparkles</option>
-<option value="party">Party Confetti + Motion</option>
-<option value="elegant">Elegant Slow Zoom</option>
-</select>
-
-<label for="durationSelect">Seconds per photo</label>
-<select id="durationSelect">
-<option value="3">3 seconds</option>
-<option value="4">4 seconds</option>
-<option value="5">5 seconds</option>
-</select>
-
-<button id="createButton" disabled onclick="createVideo()">✨ Create Advanced Birthday Video</button>
-
-<p id="status" role="status"></p>
-<h2>🎥 Preview Video</h2>
-<video id="videoPreview" controls playsinline></video>
-
-<div>
-<button id="downloadButton" disabled onclick="downloadVideo()">⬇ Download Video</button>
-</div>
-
-<p class="note">Preview your video before downloading. Video creation happens in your browser.</p>
-</div>
-
-<button onclick="openDetails()">✏️ Edit Name and DOB</button>
-<button onclick="showPage('coverPage')">🏠 Back to Cover</button>
+      <div class="form-actions">
+        <button type="submit" class="primary-btn">
+          Continue to Surprise ✨
+        </button>
+        <button type="button" id="backToCover" class="secondary-btn">
+          Back
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
 
-<canvas id="renderCanvas" width="1280" height="720"></canvas>
+<!-- WISHES -->
+<section id="wishesSection" class="page hidden">
+  <div class="card">
+    <div class="wish-emoji">🎉🎂🎁</div>
+    <h2 class="gradient-text">
+      Happy Birthday, <span id="displayName" class="name-display"></span>!
+    </h2>
+
+    <div class="wish-message">
+      <p>💖 May your special day be filled with love and laughter.</p>
+      <p>🌟 May every new day bring you happiness and success.</p>
+      <p>🎁 May your dreams come true and your memories shine forever.</p>
+      <p>🥳 Keep smiling, keep shining, and enjoy your wonderful day!</p>
+    </div>
+
+    <p id="dobMessage" class="muted" style="text-align:center"></p>
+
+    <div class="form-actions">
+      <button type="button" id="toPhotosBtn" class="primary-btn">
+        Create Your Memory Video 🎬
+      </button>
+      <button type="button" id="editDetailsBtn" class="secondary-btn">
+        Edit Details
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section id="photosSection" class="page hidden">
+  <div class="card">
+    <h2>📸 Choose Your Memories</h2>
+    <p class="muted" style="text-align:center">
+      Select the default photos or upload your own photos.
+    </p>
+
+    <div class="photo-options">
+      <label class="option-label">
+        <input type="radio" name="photoMode" value="default" checked>
+        Default Photos
+      </label>
+      <label class="option-label">
+        <input type="radio" name="photoMode" value="custom">
+        My Own Photos
+      </label>
+    </div>
+
+    <div id="defaultPhotoArea">
+      <p class="small-note">
+        Your special photo is first, followed by img1.jpg to img10.jpg.
+      </p>
+    </div>
+
+    <div id="customPhotoArea" class="upload-box hidden">
+      <strong>Upload Your Photos 📷</strong>
+      <p class="small-note">Select multiple JPG, PNG or WebP images.</p>
+      <input id="photoUpload" type="file" accept="image/*" multiple>
+    </div>
+
+    <div id="photoGrid" class="photo-grid"></div>
+    <p id="photoStatus" class="error" role="status"></p>
+
+    <div class="form-actions">
+      <button type="button" id="createVideoBtn" class="primary-btn">
+        Generate Animated Video ✨
+      </button>
+      <button type="button" id="backToWishes" class="secondary-btn">
+        Back to Wishes
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="videoSection" class="page hidden">
+  <div class="card">
+    <h2>🎬 Your Birthday Memory Video</h2>
+    <p class="muted" style="text-align:center">
+      Preview your animated birthday slideshow and download it.
+    </p>
+
+    <canvas id="videoCanvas" width="1280" height="720" class="hidden"></canvas>
+    <video id="videoPreview" controls playsinline></video>
+
+    <div class="progress-wrap">
+      <div id="progressBar"></div>
+    </div>
+
+    <p id="videoStatus" class="error" role="status">
+      Generate the video to begin.
+    </p>
+
+    <div class="video-controls">
+      <button type="button" id="playPreviewBtn" class="primary-btn" disabled>
+        Preview Video ▶
+      </button>
+      <button type="button" id="downloadVideoBtn" class="primary-btn" disabled>
+        Download Video ⬇
+      </button>
+      <button type="button" id="recreateVideoBtn" class="secondary-btn">
+        Recreate Video
+      </button>
+    </div>
+
+    <p class="small-note">
+      Video recording requires browser support for canvas recording and
+      MediaRecorder. The video is saved in WebM format.
+    </p>
+
+    <div class="form-actions">
+      <button type="button" id="backToPhotos" class="secondary-btn">
+        Change Photos
+      </button>
+      <button type="button" id="startAgain" class="secondary-btn">
+        Start Again ↻
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>Made with 💖 for a very special birthday</footer>
 
 <script>
+"use strict";
+
 const $ = id => document.getElementById(id);
 
-let birthdayName = "";
-let selectedImages = [];
-let previewURLs = [];
-let videoBlob = null;
-let videoURL = null;
-let recording = false;
+const sections = [
+  "cover",
+  "detailsSection",
+  "wishesSection",
+  "photosSection",
+  "videoSection"
+];
 
-function showPage(id) {
- document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
- $(id).classList.add("active");
- window.scrollTo({top:0,behavior:"smooth"});
+const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+let person = { name: "", day: 0, month: 0, year: 0 };
+let customPhotos = [];
+let videoUrl = "";
+let recorder = null;
+let isGenerating = false;
+
+function showSection(id) {
+  sections.forEach(section => $(section).classList.add("hidden"));
+  $(id).classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function populateDateSelectors() {
+  for (let day = 1; day <= 31; day++) {
+    const option = document.createElement("option");
+    option.value = day;
+    option.textContent = day;
+    $("birthDay").appendChild(option);
+  }
+
+  months.forEach((month, index) => {
+    const option = document.createElement("option");
+    option.value = index + 1;
+    option.textContent = month;
+    $("birthMonth").appendChild(option);
+  });
+
+  for (let year = new Date().getFullYear(); year >= 1900; year--) {
+    const option = document.createElement("option");
+    option.value = year;
+    option.textContent = year;
+    $("birthYear").appendChild(option);
+  }
+}
+
+/* WORKING OPEN BUTTON */
 function openDetails() {
- $("formError").textContent = "";
- $("detailsModal").classList.add("open");
- $("personName").focus();
+  showSection("detailsSection");
+  $("formError").textContent = "";
+  setTimeout(() => $("personName").focus(), 200);
 }
 
-function closeDetails() {
- $("detailsModal").classList.remove("open");
+function validDate(day, month, year) {
+  const date = new Date(year, month - 1, day);
+  return date.getFullYear() === year &&
+         date.getMonth() === month - 1 &&
+         date.getDate() === day;
 }
 
-$("detailsModal").addEventListener("click", e => {
- if(e.target === $("detailsModal")) closeDetails();
-});
+function handleDetails(event) {
+  event.preventDefault();
 
-document.addEventListener("keydown", e => {
- if(e.key === "Escape") closeDetails();
-});
+  const name = $("personName").value.trim();
+  const day = Number($("birthDay").value);
+  const month = Number($("birthMonth").value);
+  const year = Number($("birthYear").value);
 
-$("detailsForm").addEventListener("submit", e => {
- e.preventDefault();
+  if (!name) {
+    $("formError").textContent = "Please enter the person's name.";
+    return;
+  }
 
- birthdayName = $("personName").value.trim();
+  if (!day || !month || !year || !validDate(day, month, year)) {
+    $("formError").textContent = "Please select a valid date of birth.";
+    return;
+  }
 
- const day = Number($("day").value);
- const month = Number($("month").value);
- const year = Number($("year").value);
+  person = { name, day, month, year };
+  $("displayName").textContent = name;
+  $("dobMessage").textContent =
+    "Wishing you a wonderful year ahead, " + name + "! 🎂";
 
- const today = new Date();
- today.setHours(0,0,0,0);
-
- if(!birthdayName) {
-  $("formError").textContent = "Please enter the name.";
-  return;
- }
-
- if(!Number.isInteger(day) || !Number.isInteger(month) ||
-    !Number.isInteger(year) || day<1 || day>31 ||
-    month<1 || month>12 || year<1900 ||
-    year>today.getFullYear()) {
-  $("formError").textContent = "Please enter a valid date.";
-  return;
- }
-
- const birth = new Date(year,month-1,day);
-
- if(birth.getFullYear()!==year ||
-    birth.getMonth()!==month-1 ||
-    birth.getDate()!==day || birth>today) {
-  $("formError").textContent = "That date is not valid.";
-  return;
- }
-
- let age = today.getFullYear()-year;
-
- if(today.getMonth()<month-1 ||
-   (today.getMonth()===month-1 && today.getDate()<day)) age--;
-
- $("displayName").textContent = birthdayName;
- $("nameInfo").textContent = birthdayName;
- $("dobInfo").textContent = birth.toLocaleDateString(undefined,{
-  day:"2-digit",month:"long",year:"numeric"
- });
- $("ageInfo").textContent = age+" years old";
- $("wishMessage").textContent =
-  `Dear ${birthdayName}, may your days be filled with love, happiness, success and wonderful memories. May your dreams come true. Happy birthday! 💖`;
-
- closeDetails();
- showPage("birthdayPage");
-});
-
-function clearVideo() {
- if(videoURL) URL.revokeObjectURL(videoURL);
- videoURL = null;
- videoBlob = null;
-
- $("videoPreview").pause();
- $("videoPreview").removeAttribute("src");
- $("videoPreview").load();
- $("downloadButton").disabled = true;
- $("status").textContent = "";
+  confetti(60);
+  showSection("wishesSection");
 }
 
-function clearPhotoPreviews() {
- previewURLs.forEach(u => URL.revokeObjectURL(u));
- previewURLs = [];
- $("photoGrid").replaceChildren();
+function confetti(count) {
+  const colors = ["#ff4f91", "#ffe29a", "#a855f7", "#7dd3fc", "#ffffff"];
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti";
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 3) + "s";
+    piece.style.animationDelay = Math.random() + "s";
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 6000);
+  }
+}
+
+function currentPhotoMode() {
+  return document.querySelector('input[name="photoMode"]:checked').value;
 }
 
 function loadImage(src) {
- return new Promise((resolve,reject) => {
-  const img = new Image();
-  img.onload = () => resolve(img);
-  img.onerror = () => reject(new Error("Could not load "+src));
-  img.src = src;
- });
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Image not found: " + src));
+    img.src = src;
+  });
 }
 
-function addPreview(image,name) {
- const card = document.createElement("div");
- card.className = "photo-card";
+/* UPDATED DEFAULT PHOTO PATHS */
+async function getDefaultImages() {
+  const paths = [
+    "images/IMG_20260324_092511.jpg",
+    "images/img1.jpg",
+    "images/img2.jpg",
+    "images/img3.jpg",
+    "images/img4.jpg",
+    "images/img5.jpg",
+    "images/img6.jpg",
+    "images/img7.jpg",
+    "images/img8.jpg",
+    "images/img9.jpg",
+    "images/img10.jpg"
+  ];
 
- const img = document.createElement("img");
- img.src = image.src;
- img.alt = name;
+  const loaded = [];
 
- const caption = document.createElement("small");
- caption.textContent = name;
+  for (let i = 0; i < paths.length; i++) {
+    try {
+      const image = await loadImage(paths[i]);
 
- card.append(img,caption);
- $("photoGrid").appendChild(card);
-}
-
-/* OPTION 1: DEFAULT PHOTOS */
-async function useDefaultPhotos() {
- if(recording) return;
-
- selectedImages = [];
- clearVideo();
- clearPhotoPreviews();
-
- $("creatorPanel").hidden = false;
- $("creatorTitle").textContent = "🎂 Default Birthday Photos";
- $("imageCount").textContent = "Loading photos...";
- $("createButton").disabled = true;
- $("imageInput").value = "";
- $("creatorPanel").scrollIntoView({behavior:"smooth"});
-
- try {
-  for(let i=1;i<=10;i++) {
-   $("status").textContent = `Loading photo ${i} of 10...`;
-   const image = await loadImage(`images/img${i}.jpg`);
-   selectedImages.push({image,name:`img${i}.jpg`});
-   addPreview(image,`img${i}.jpg`);
+      loaded.push({
+        image,
+        label: i === 0 ? "Special Photo" : "Photo " + i,
+        source: paths[i]
+      });
+    } catch (error) {
+      console.warn(error.message);
+    }
   }
 
-  $("imageCount").textContent = "10 default photos ready.";
-  $("status").textContent = "Choose an animation style and create your video.";
-  $("createButton").disabled = false;
-
- } catch(error) {
-  selectedImages = [];
-  $("createButton").disabled = true;
-  $("status").textContent =
-   error.message+" — Check that img1.jpg through img10.jpg are inside the images folder.";
- }
+  return loaded;
 }
 
-/* OPTION 2: YOUR OWN PHOTOS */
-$("imageInput").addEventListener("change",async e => {
- if(recording) return;
+async function renderPhotoGrid() {
+  const grid = $("photoGrid");
+  grid.replaceChildren();
+  $("photoStatus").textContent = "Loading photos...";
 
- clearVideo();
- clearPhotoPreviews();
- selectedImages = [];
+  if (currentPhotoMode() === "default") {
+    const photos = await getDefaultImages();
 
- $("creatorPanel").hidden = false;
- $("creatorTitle").textContent = "📸 Your Uploaded Photos";
- $("createButton").disabled = true;
+    if (currentPhotoMode() !== "default") return;
 
- const files = Array.from(e.target.files || [])
-  .filter(f => f.type.startsWith("image/"));
+    grid.replaceChildren();
 
- if(!files.length) {
-  $("imageCount").textContent = "No images selected.";
-  return;
- }
+    photos.forEach(photo => {
+      const tile = document.createElement("div");
+      tile.className = "photo-tile";
 
- $("imageCount").textContent = `Loading ${files.length} images...`;
+      const img = document.createElement("img");
+      img.src = photo.source;
+      img.alt = photo.label;
+      img.loading = "lazy";
 
- for(const file of files) {
-  try {
-   const url = URL.createObjectURL(file);
-   previewURLs.push(url);
+      const label = document.createElement("span");
+      label.textContent = photo.label;
 
-   const image = await loadImage(url);
-   selectedImages.push({image,name:file.name});
-   addPreview(image,file.name);
-  } catch(error) {
-   console.warn(error);
+      tile.append(img, label);
+      grid.appendChild(tile);
+    });
+
+    $("photoStatus").textContent = photos.length
+      ? photos.length + " default photo(s) loaded."
+      : "No images found. Check your images folder and filenames.";
+
+    return;
   }
- }
 
- $("imageCount").textContent = `${selectedImages.length} photo(s) ready.`;
- $("status").textContent = selectedImages.length
-  ? "Your photos are ready to animate."
-  : "No valid images could be loaded.";
+  grid.replaceChildren();
 
- $("createButton").disabled = selectedImages.length===0;
-});
+  customPhotos.forEach((photo, index) => {
+    const tile = document.createElement("div");
+    tile.className = "photo-tile";
 
-/* ADVANCED PHOTO MOVEMENT */
-function drawPhoto(ctx,image,t,style) {
- const w=ctx.canvas.width,h=ctx.canvas.height;
- const imageRatio=image.width/image.height;
- const canvasRatio=w/h;
+    const img = document.createElement("img");
+    img.src = photo.url;
+    img.alt = "Uploaded photo " + (index + 1);
 
- let dw,dh;
- if(imageRatio>canvasRatio) {
-  dh=h; dw=h*imageRatio;
- } else {
-  dw=w; dh=w/imageRatio;
- }
+    const label = document.createElement("span");
+    label.textContent = "Photo " + (index + 1);
 
- let zoom=1.05,px=0,py=0,rotation=0;
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "remove-photo";
+    remove.textContent = "×";
+    remove.setAttribute("aria-label", "Remove photo");
 
- if(style==="cinematic") {
-  zoom=1.04+0.15*t;
-  px=Math.sin(t*Math.PI*2)*12;
-  py=Math.cos(t*Math.PI)*8;
- }
- else if(style==="dream") {
-  zoom=1.08+0.05*Math.sin(t*Math.PI*2);
-  px=Math.sin(t*6)*20;
-  py=Math.cos(t*5)*14;
-  rotation=Math.sin(t*Math.PI*2)*0.008;
- }
- else if(style==="party") {
-  zoom=1.02+0.11*t;
-  px=Math.sin(t*8)*18;
-  py=Math.cos(t*7)*12;
-  rotation=Math.sin(t*6)*0.006;
- }
- else {
-  zoom=1.02+0.07*t;
-  px=Math.sin(t*Math.PI)*5;
- }
+    remove.addEventListener("click", () => {
+      URL.revokeObjectURL(photo.url);
+      customPhotos.splice(index, 1);
+      renderPhotoGrid();
+    });
 
- ctx.save();
- ctx.translate(w/2+px,h/2+py);
- ctx.rotate(rotation);
- ctx.scale(zoom,zoom);
- ctx.drawImage(image,-dw/2,-dh/2,dw,dh);
- ctx.restore();
-}
-
-/* DRAW ANIMATED VIDEO FRAME */
-function drawFrame(image,progress,index,total,style) {
- const canvas=$("renderCanvas");
- const ctx=canvas.getContext("2d");
- const w=canvas.width,h=canvas.height;
-
- const palettes={
-  cinematic:["#190b2d","#ff4fa3","#7c4dff"],
-  dream:["#12213a","#a7f3ff","#e9a8ff"],
-  party:["#230b36","#ffcf56","#ff3e9d"],
-  elegant:["#080c22","#f7d58b","#c9a7ff"]
- };
-
- const colors=palettes[style]||palettes.cinematic;
-
- const bg=ctx.createLinearGradient(0,0,w,h);
- bg.addColorStop(0,colors[0]);
- bg.addColorStop(1,colors[2]);
- ctx.fillStyle=bg;
- ctx.fillRect(0,0,w,h);
-
- /* Photo entrance */
- ctx.save();
- ctx.globalAlpha=Math.min(1,progress/0.45);
- drawPhoto(ctx,image,progress/3,style);
- ctx.restore();
-
- /* Cinematic dark edges */
- const vignette=ctx.createRadialGradient(w/2,h/2,100,w/2,h/2,w*.75);
- vignette.addColorStop(0,"rgba(0,0,0,0)");
- vignette.addColorStop(1,"rgba(0,0,0,.52)");
- ctx.fillStyle=vignette;
- ctx.fillRect(0,0,w,h);
-
- /* Text background */
- const lower=ctx.createLinearGradient(0,h*.55,0,h);
- lower.addColorStop(0,"rgba(0,0,0,0)");
- lower.addColorStop(1,"rgba(0,0,0,.78)");
- ctx.fillStyle=lower;
- ctx.fillRect(0,h*.52,w,h*.48);
-
- /* Sparkles and confetti */
- const count=style==="party"?90:style==="dream"?45:28;
-
- for(let j=0;j<count;j++) {
-  const seed=j*97.13+index*31.7;
-  const x=((Math.sin(seed)*.5+.5)*w+
-    progress*(style==="party"?75:22))%w;
-  const y=((Math.cos(seed*1.7)*.5+.5)*h+
-    progress*35+j*4)%h;
-  const r=style==="party"?2+(j%4):1.5+(j%3)*.7;
-
-  ctx.globalAlpha=.25+.55*(.5+.5*Math.sin(progress*5+j));
-  ctx.fillStyle=colors[1];
-
-  if(style==="party") {
-   ctx.save();
-   ctx.translate(x,y);
-   ctx.rotate(progress*3+j);
-   ctx.fillRect(-r,-r*2,r*2,r*4);
-   ctx.restore();
-  } else {
-   ctx.beginPath();
-   ctx.arc(x,y,r,0,Math.PI*2);
-   ctx.fill();
-  }
- }
- ctx.globalAlpha=1;
-
- /* Moving light beam */
- if(style==="cinematic"||style==="dream") {
-  const sx=((progress/3)*1.5-.25)*w;
-  const shine=ctx.createLinearGradient(sx-100,0,sx+100,0);
-  shine.addColorStop(0,"rgba(255,255,255,0)");
-  shine.addColorStop(.5,"rgba(255,255,255,.12)");
-  shine.addColorStop(1,"rgba(255,255,255,0)");
-  ctx.fillStyle=shine;
-  ctx.fillRect(0,0,w,h);
- }
-
- /* Animated birthday title */
- const entrance=Math.min(1,Math.max(0,(progress-.25)/.55));
-
- ctx.save();
- ctx.globalAlpha=entrance;
- ctx.translate(w/2,h-112+(1-entrance)*35);
- ctx.textAlign="center";
- ctx.shadowColor=colors[1];
- ctx.shadowBlur=style==="elegant"?12:24;
- ctx.fillStyle="#fff";
- ctx.font="bold 58px Arial";
- ctx.fillText(`Happy Birthday, ${birthdayName}!`,0,0,w-80);
-
- ctx.shadowBlur=8;
- ctx.font="30px Arial";
- ctx.fillStyle=colors[1];
- ctx.fillText("✦ Wishing You Love & Happiness ✦",0,49,w-80);
- ctx.restore();
-
- /* Photo number */
- ctx.textAlign="right";
- ctx.font="bold 22px Arial";
- ctx.fillStyle="#fff";
- ctx.shadowBlur=5;
- ctx.fillText(`${index+1} / ${total}`,w-28,38);
- ctx.shadowBlur=0;
-
- /* Glowing border */
- ctx.strokeStyle=colors[1];
- ctx.lineWidth=5;
- ctx.globalAlpha=.45+.35*Math.sin(progress*5);
- ctx.strokeRect(12,12,w-24,h-24);
- ctx.globalAlpha=1;
-}
-
-function getMimeType() {
- if(!window.MediaRecorder) return "";
- const types=["video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
- return types.find(t=>MediaRecorder.isTypeSupported(t))||"";
-}
-
-function wait(ms) {
- return new Promise(resolve=>setTimeout(resolve,ms));
-}
-
-/* CREATE THE ANIMATED VIDEO */
-async function createVideo() {
- if(recording||!selectedImages.length) return;
-
- const canvas=$("renderCanvas");
-
- if(!canvas.captureStream||!window.MediaRecorder) {
-  alert("Video recording is not supported. Try an updated Chrome or Edge browser.");
-  return;
- }
-
- const mimeType=getMimeType();
-
- if(!mimeType) {
-  alert("This browser does not support WebM video recording.");
-  return;
- }
-
- recording=true;
- $("createButton").disabled=true;
- $("downloadButton").disabled=true;
- clearVideo();
-
- let stream;
-
- try {
-  $("status").textContent="Preparing your animated birthday movie...";
-
-  const style=$("styleSelect").value;
-  const seconds=Number($("durationSelect").value);
-
-  stream=canvas.captureStream(30);
-
-  const chunks=[];
-  const recorder=new MediaRecorder(stream,{
-   mimeType,
-   videoBitsPerSecond:5500000
+    tile.append(img, label, remove);
+    grid.appendChild(tile);
   });
 
-  const stopped=new Promise((resolve,reject)=>{
-   recorder.ondataavailable=e=>{
-    if(e.data&&e.data.size) chunks.push(e.data);
-   };
-   recorder.onerror=()=>reject(new Error("The browser failed to record the video."));
-   recorder.onstop=()=>resolve(new Blob(chunks,{type:mimeType}));
+  $("photoStatus").textContent = customPhotos.length
+    ? customPhotos.length + " uploaded photo(s) selected."
+    : "Upload one or more photos to continue.";
+}
+
+function updatePhotoMode() {
+  const isDefault = currentPhotoMode() === "default";
+  $("defaultPhotoArea").classList.toggle("hidden", !isDefault);
+  $("customPhotoArea").classList.toggle("hidden", isDefault);
+  renderPhotoGrid();
+}
+
+function handleUpload(event) {
+  const files = Array.from(event.target.files || []);
+  const images = files.filter(file => file.type.startsWith("image/"));
+
+  images.forEach(file => {
+    customPhotos.push({
+      file,
+      url: URL.createObjectURL(file)
+    });
   });
 
-  const totalSeconds=selectedImages.length*seconds;
-  recorder.start(250);
+  event.target.value = "";
+  renderPhotoGrid();
+}
 
-  for(let i=0;i<selectedImages.length;i++) {
-   const photoStart=performance.now();
-
-   while(true) {
-    const elapsed=(performance.now()-photoStart)/1000;
-    const progress=Math.min(elapsed,seconds);
-
-    drawFrame(selectedImages[i].image,progress,i,selectedImages.length,style);
-
-    const percent=Math.min(99,Math.floor(
-      (i*seconds+progress)/totalSeconds*100
-    ));
-
-    $("status").textContent=
-      `Creating ${style} animation... ${percent}%`;
-
-    if(elapsed>=seconds) break;
-
-    await new Promise(resolve=>requestAnimationFrame(resolve));
-   }
+async function getSelectedImages() {
+  if (currentPhotoMode() === "default") {
+    return getDefaultImages();
   }
 
-  drawFrame(
-   selectedImages[selectedImages.length-1].image,
-   seconds,selectedImages.length-1,selectedImages.length,style
-  );
+  const result = [];
 
-  await wait(500);
-  recorder.stop();
-
-  videoBlob=await stopped;
-
-  if(!videoBlob||!videoBlob.size) {
-   throw new Error("The generated video is empty.");
+  for (let i = 0; i < customPhotos.length; i++) {
+    try {
+      result.push({
+        image: await loadImage(customPhotos[i].url),
+        label: "Memory " + (i + 1)
+      });
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
-  videoURL=URL.createObjectURL(videoBlob);
-  $("videoPreview").src=videoURL;
-  $("videoPreview").load();
-  $("downloadButton").disabled=false;
+  return result;
+}
 
-  $("status").textContent=
-   `Your animated video is ready! ${selectedImages.length} photos included. Preview it above, then download.`;
+function drawBackground(ctx, width, height, time) {
+  const gradient = ctx.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, "#240d3d");
+  gradient.addColorStop(.5, "#75235e");
+  gradient.addColorStop(1, "#1b1245");
 
- } catch(error) {
-  console.error(error);
-  $("status").textContent="Video creation failed: "+error.message;
-  alert("Could not create the video. Try fewer or smaller photos.");
- } finally {
-  if(stream) stream.getTracks().forEach(t=>t.stop());
-  recording=f
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  for (let i = 0; i < 50; i++) {
+    const x = (i * 173 + time * (15 + i % 5)) % width;
+    const y = (i * 97 + Math.sin(time + i) * 45) % height;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 2 + i % 3, 0, Math.PI * 2);
+    ctx.fillStyle = i % 2 ? "#ffb6dc88" : "#ffe29a99";
+    ctx.fill();
+  }
+}
+
+function drawText(ctx, text, x, y, maxWidth, font) {
+  ctx.font = font;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "white";
+  ctx.shadowColor = "#ff4f91";
+  ctx.shadowBlur = 15;
+  ctx.fillText(text, x, y, maxWidth);
+  ctx.shadowBlur = 0;
+}
+
+function drawTitle(ctx, time, width, height) {
+  drawBackground(ctx, width, heigh

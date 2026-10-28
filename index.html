@@ -3,880 +3,367 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎂</title>
-
+<title>Birthday Surprise 💖 </title>
 <style>
-* { box-sizing: border-box; }
-
-:root {
-  --pink: #ff4f91;
-  --purple: #a855f7;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: white;
-  background: linear-gradient(135deg, #190d2d, #48165d, #a62d77);
-  min-height: 100vh;
-}
-
-button, input, select { font: inherit; }
-button { cursor: pointer; }
-
-.hidden { display: none !important; }
-
-.page {
-  min-height: 100vh;
-  padding: 24px 15px 45px;
-}
-
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#cover {
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cover-content {
-  width: 100%;
-  max-width: 750px;
-  margin: auto;
-  position: relative;
-  z-index: 2;
-}
-
-.cake {
-  font-size: clamp(80px, 18vw, 130px);
-  animation: float 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px #ff8ac2);
-}
-
-h1 {
-  font-size: clamp(32px, 7vw, 60px);
-  line-height: 1.2;
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, #ffe29a, #ff8dc7, #d8c0ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.subtitle {
-  color: #ffe7f4;
-  line-height: 1.8;
-  max-width: 520px;
-  margin: 0 auto 28px;
-}
-
-.primary-btn {
-  padding: 14px 24px;
-  border-radius: 40px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  background: linear-gradient(100deg, #ff4f91, #a855f7);
-  box-shadow: 0 8px 25px #ff4f9155;
-  transition: transform .2s;
-}
-
-.primary-btn:hover {
-  transform: translateY(-3px);
-}
-
-.secondary-btn {
-  padding: 12px 20px;
-  border-radius: 30px;
-  border: 1px solid #ffffff55;
-  background: #ffffff18;
-  color: white;
-}
-
-.next-step {
-  margin-top: 18px;
-  text-align: center;
-  color: #ffe8f5;
-}
-
-.next-step p {
-  margin: 8px 0;
-  font-size: 14px;
-}
-
-.arrow {
-  display: block;
-  font-size: 28px;
-  animation: arrowDown 1s infinite;
-}
-
-.arrow:last-child { animation-delay: .25s; }
-
-.card {
-  max-width: 950px;
-  width: 100%;
-  margin: 20px auto;
-  padding: clamp(18px, 5vw, 38px);
-  border-radius: 24px;
-  background: #ffffff13;
-  border: 1px solid #ffffff30;
-  box-shadow: 0 15px 50px #10051c44;
-  backdrop-filter: blur(12px);
-}
-
-.card h2 {
-  text-align: center;
-  font-size: clamp(24px, 5vw, 36px);
-  margin-top: 0;
-}
-
-.muted {
-  color: #f3d8eb;
-  line-height: 1.7;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-input[type="text"], select {
-  width: 100%;
-  min-width: 0;
-  padding: 13px;
-  border-radius: 12px;
-  border: 1px solid #ffffff55;
-  background: white;
-  color: #24102f;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-
-.dob-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 22px;
-}
-
-.error {
-  color: #ffe29a;
-  text-align: center;
-  min-height: 20px;
-}
-
-.wish-message {
-  text-align: center;
-  font-size: clamp(17px, 4vw, 23px);
-  line-height: 1.8;
-  color: #ffe5f4;
-}
-
-.name-display {
-  color: #ffe29a;
-  overflow-wrap: anywhere;
-}
-
-.wish-emoji {
-  text-align: center;
-  font-size: 42px;
-  animation: float 2s infinite;
-}
-
-.photo-options {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-
-.option-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px;
-  border: 1px solid #ffffff55;
-  border-radius: 12px;
-  background: #ffffff12;
-}
-
-.option-label input { accent-color: #ff4f91; }
-
-.upload-box {
-  padding: 18px;
-  border: 2px dashed #ffffff65;
-  border-radius: 18px;
-  text-align: center;
-}
-
-input[type="file"] {
-  display: block;
-  max-width: 100%;
-  margin-top: 14px;
-  color: white;
-}
-
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
-  gap: 12px;
-  margin-top: 22px;
-}
-
-.photo-tile {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  background: #351646;
-  border: 1px solid #ffffff30;
-}
-
-.photo-tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-tile span {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 7px;
-  background: #15071ccc;
-  text-align: center;
-  font-size: 12px;
-}
-
-.remove-photo {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  border: 0;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  background: #e11d48;
-  color: white;
-  z-index: 2;
-}
-
-#videoPreview {
-  width: 100%;
-  max-height: 520px;
-  display: block;
-  background: #10051c;
-  border-radius: 16px;
-}
-
-.video-controls {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 22px 0;
-}
-
-.progress-wrap {
-  height: 10px;
-  background: #ffffff22;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 15px 0;
-}
-
-#progressBar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #ff4f91, #ffe29a);
-}
-
-.small-note {
-  font-size: 13px;
-  color: #eed9ee;
-  line-height: 1.6;
-}
-
-.float-item {
-  position: absolute;
-  pointer-events: none;
-  opacity: .7;
-  animation: floatUp linear infinite;
-  z-index: 1;
-}
-
-.confetti {
-  position: fixed;
-  top: -20px;
-  width: 9px;
-  height: 15px;
-  pointer-events: none;
-  z-index: 20;
-  animation: confettiFall linear forwards;
-}
-
-footer {
-  text-align: center;
-  padding: 22px;
-  color: #f2d7eb;
-  font-size: 13px;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
-}
-
-@keyframes arrowDown {
-  0%, 100% { transform: translateY(0); opacity: .55; }
-  50% { transform: translateY(8px); opacity: 1; }
-}
-
-@keyframes floatUp {
-  from { transform: translateY(110vh) rotate(0); }
-  to { transform: translateY(-20vh) rotate(360deg); }
-}
-
-@keyframes confettiFall {
-  to { transform: translateY(110vh) rotate(720deg); opacity: .2; }
-}
-
-@media (min-width: 650px) {
-  .form-grid { grid-template-columns: 1fr 1fr; }
-  .full-width { grid-column: 1 / -1; }
-}
-
-@media (max-width: 420px) {
-  .card { padding: 18px 13px; }
-  .dob-grid { gap: 5px; }
-  .dob-grid select { padding: 11px 4px; }
-}
+:root{--pink:#ff4f91;--deep:#a31256;--purple:#7b2ff7}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff0f6,#f5eaff,#fff9e8);color:#442039;min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.page{width:min(900px,94%);margin:auto;padding:24px 0 50px}
+.panel{background:#ffffffed;border:1px solid white;box-shadow:0 12px 38px #a3125618;border-radius:25px;padding:clamp(20px,5vw,42px);margin:18px 0;text-align:center}
+h1{font-size:clamp(2rem,7vw,3.6rem);margin:12px 0;color:var(--deep)}
+h2{color:var(--deep)}
+p{line-height:1.65}
+.primary-btn,.secondary-btn{border:0;border-radius:999px;padding:14px 24px;font-weight:bold;transition:transform .2s}
+.primary-btn{color:white;background:linear-gradient(100deg,var(--pink),var(--purple));box-shadow:0 8px 20px #c43a8c30}
+.secondary-btn{color:var(--deep);background:#ffe3f0;border:1px solid #ffc0dc}
+button:hover{transform:translateY(-2px)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9d63ff;outline-offset:3px}
+.cover{min-height:82vh;display:flex;align-items:center;justify-content:center}
+.cover .panel{width:100%;padding-top:35px;padding-bottom:35px}
+.kicker{letter-spacing:3px;text-transform:uppercase;color:#a64a80;font-size:.8rem;font-weight:bold}
+.cake-wrap{position:relative;width:190px;height:165px;margin:10px auto 20px;animation:bob 2.5s ease-in-out infinite}
+.cake-base{position:absolute;bottom:14px;left:25px;width:140px;height:66px;background:linear-gradient(#ff8db9,#f64d8c);border-radius:10px 10px 18px 18px;box-shadow:inset 0 -9px #e63778}
+.cake-top{position:absolute;bottom:67px;left:25px;width:140px;height:28px;background:#fff0f5;border-radius:50%;border:4px solid #ff7bad}
+.candle{position:absolute;bottom:93px;left:91px;width:10px;height:38px;border-radius:4px;background:repeating-linear-gradient(45deg,#fff 0 5px,#8b5cf6 5px 10px)}
+.flame{position:absolute;bottom:130px;left:88px;width:17px;height:24px;background:radial-gradient(ellipse at 50% 70%,#fff7a8 0 20%,#ff9e36 48%,#ff5d37 72%);border-radius:50%;animation:flicker .45s alternate infinite}
+.cake-sprinkle{position:absolute;bottom:34px;left:42px;color:white;font-size:19px;letter-spacing:10px}
+@keyframes bob{50%{transform:translateY(-9px)}}
+@keyframes flicker{to{transform:rotate(7deg) scale(.9)}}
+.down-arrows{margin:24px auto 0;color:#c42b79;font-size:25px;animation:down 1s infinite}
+.down-arrows span{display:block;line-height:.6}
+@keyframes down{50%{transform:translateY(7px);opacity:.55}}
+.field{text-align:left;margin:18px 0}
+.field label{display:block;font-weight:bold;margin-bottom:8px;color:#70244e}
+.field input,.field select{width:100%;padding:13px 14px;border:1px solid #e6bdd2;border-radius:12px;background:white;color:#43243a}
+.dob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.error{color:#c51d4b;font-weight:bold;min-height:22px}
+.section-note{color:#79536d}
+.choice-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:18px 0}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:12px;margin:18px 0}
+.photo-card{border:3px solid transparent;border-radius:15px;padding:5px;background:white;box-shadow:0 5px 16px #7b2f5714}
+.photo-card.selected{border-color:var(--pink);background:#fff0f7}
+.photo-card img{width:100%;height:125px;object-fit:cover;border-radius:10px;display:block}
+.photo-card span{display:block;font-size:.82rem;margin:7px 0 2px;overflow-wrap:anywhere}
+.preview-photo{width:min(100%,430px);max-height:340px;object-fit:contain;border-radius:18px;background:white}
+.wish{font-size:clamp(1.1rem,3vw,1.45rem);line-height:1.7;color:#7c1c51}
+.video-box{width:100%;max-width:680px;margin:18px auto}
+video{width:100%;max-height:390px;background:#241020;border-radius:16px}
+.small{font-size:.9rem;color:#80657a}
+footer{text-align:center;color:#94657e;padding:15px}
+@media(max-width:500px){.dob-grid{gap:7px}.dob-grid select{padding:12px 6px}.panel{border-radius:20px}.photo-card img{height:110px}}
 </style>
 </head>
-
 <body>
+<main class="page">
 
-<!-- COVER -->
-<section id="cover" class="page center">
-  <div class="cover-content">
-    <div class="cake">🎂</div>
-    <h1 class="gradient-text">A Special Birthday Surprise</h1>
-
-    <p class="subtitle">
-      A beautiful surprise filled with happiness, love,
-      special memories and endless smiles. 💖
-    </p>
-
-    <button type="button" id="openSurpriseBtn" class="primary-btn">
-      Open Your Surprise 💖
-    </button>
-
-    <div class="next-step">
-      <span class="arrow">⬇</span>
-      <p>Click above to begin your surprise</p>
-      <span class="arrow">⬇</span>
-    </div>
-  </div>
+<section id="cover" class="cover">
+<div class="panel">
+<div class="kicker">A little surprise made with love</div>
+<div class="cake-wrap">
+<div class="flame"></div><div class="candle"></div>
+<div class="cake-top"></div><div class="cake-base"></div>
+<div class="cake-sprinkle">• • • •</div>
+</div>
+<h1>Birthday Surprise 💖</h1>
+<p>Someone special deserves a moment full of smiles, memories, and love.</p>
+<button type="button" class="primary-btn" onclick="openDetails()">Open Your Surprise 💖</button>
+<div class="down-arrows"><span>⌄</span><span>⌄</span></div>
+</div>
 </section>
 
-<!-- DETAILS -->
-<section id="detailsSection" class="page hidden">
-  <div class="card">
-    <h2>💌 Personalize Your Surprise</h2>
-    <p class="muted" style="text-align:center">
-      Enter the person's name and date of birth.
-    </p>
-
-    <form id="detailsForm">
-      <div class="form-grid">
-        <div class="full-width">
-          <label for="personName">Person's Name</label>
-          <input id="personName" type="text" maxlength="70"
-                 placeholder="Enter name" required>
-        </div>
-
-        <div class="full-width">
-          <label>Date of Birth</label>
-          <div class="dob-grid">
-            <div>
-              <label for="birthDay">Day</label>
-              <select id="birthDay" required>
-                <option value="">Day</option>
-              </select>
-            </div>
-            <div>
-              <label for="birthMonth">Month</label>
-              <select id="birthMonth" required>
-                <option value="">Month</option>
-              </select>
-            </div>
-            <div>
-              <label for="birthYear">Year</label>
-              <select id="birthYear" required>
-                <option value="">Year</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <p id="formError" class="error" role="alert"></p>
-
-      <div class="form-actions">
-        <button type="submit" class="primary-btn">
-          Continue to Surprise ✨
-        </button>
-        <button type="button" id="backToCover" class="secondary-btn">
-          Back
-        </button>
-      </div>
-    </form>
-  </div>
+<section id="detailsSection" class="panel hidden">
+<h2>First, tell me about the birthday star ✨</h2>
+<p class="section-note">Enter a name and choose the date of birth.</p>
+<div class="field">
+<label for="personName">Name</label>
+<input id="personName" type="text" maxlength="70" placeholder="Enter the birthday person's name">
+</div>
+<div class="field">
+<label>Date of birth</label>
+<div class="dob-grid">
+<select id="dobDay" aria-label="Day"><option value="">Day</option></select>
+<select id="dobMonth" aria-label="Month"><option value="">Month</option></select>
+<select id="dobYear" aria-label="Year"><option value="">Year</option></select>
+</div>
+</div>
+<p id="formError" class="error"></p>
+<button type="button" class="primary-btn" onclick="showBirthday()">Continue to the surprise ✨</button>
 </section>
 
-<!-- WISHES -->
-<section id="wishesSection" class="page hidden">
-  <div class="card">
-    <div class="wish-emoji">🎉🎂🎁</div>
-    <h2 class="gradient-text">
-      Happy Birthday, <span id="displayName" class="name-display"></span>!
-    </h2>
-
-    <div class="wish-message">
-      <p>💖 May your special day be filled with love and laughter.</p>
-      <p>🌟 May every new day bring you happiness and success.</p>
-      <p>🎁 May your dreams come true and your memories shine forever.</p>
-      <p>🥳 Keep smiling, keep shining, and enjoy your wonderful day!</p>
-    </div>
-
-    <p id="dobMessage" class="muted" style="text-align:center"></p>
-
-    <div class="form-actions">
-      <button type="button" id="toPhotosBtn" class="primary-btn">
-        Create Your Memory Video 🎬
-      </button>
-      <button type="button" id="editDetailsBtn" class="secondary-btn">
-        Edit Details
-      </button>
-    </div>
-  </div>
+<section id="birthdaySection" class="panel hidden">
+<div class="kicker">Today is all about you</div>
+<h1 id="birthdayHeading">Happy Birthday! 🎂</h1>
+<p id="birthdayWish" class="wish"></p>
+<p id="birthdayDate" class="section-note"></p>
+<button type="button" class="primary-btn" onclick="showPhotos()">Choose your memories 📸</button>
 </section>
 
-<!-- PHOTOS -->
-<section id="photosSection" class="page hidden">
-  <div class="card">
-    <h2>📸 Choose Your Memories</h2>
-    <p class="muted" style="text-align:center">
-      Select the default photos or upload your own photos.
-    </p>
-
-    <div class="photo-options">
-      <label class="option-label">
-        <input type="radio" name="photoMode" value="default" checked>
-        Default Photos
-      </label>
-      <label class="option-label">
-        <input type="radio" name="photoMode" value="custom">
-        My Own Photos
-      </label>
-    </div>
-
-    <div id="defaultPhotoArea">
-      <p class="small-note">
-        Your special photo is first, followed by img1.jpg to img10.jpg.
-      </p>
-    </div>
-
-    <div id="customPhotoArea" class="upload-box hidden">
-      <strong>Upload Your Photos 📷</strong>
-      <p class="small-note">Select multiple JPG, PNG or WebP images.</p>
-      <input id="photoUpload" type="file" accept="image/*" multiple>
-    </div>
-
-    <div id="photoGrid" class="photo-grid"></div>
-    <p id="photoStatus" class="error" role="status"></p>
-
-    <div class="form-actions">
-      <button type="button" id="createVideoBtn" class="primary-btn">
-        Generate Animated Video ✨
-      </button>
-      <button type="button" id="backToWishes" class="secondary-btn">
-        Back to Wishes
-      </button>
-    </div>
-  </div>
+<section id="photoSection" class="panel hidden">
+<h2>Choose a photo for your surprise 💗</h2>
+<p class="section-note">Tap a saved photo or upload a photo from your device.</p>
+<div class="choice-row">
+<label class="secondary-btn" for="uploadPhoto">Upload your own photo ⬆️</label>
+<input id="uploadPhoto" type="file" accept="image/*" class="hidden">
+</div>
+<div id="photoGrid" class="photo-grid"></div>
+<p id="photoError" class="error"></p>
+<div id="selectedPhotoWrap" class="hidden">
+<h3>Photo preview</h3>
+<img id="selectedPhoto" class="preview-photo" alt="Selected birthday photo">
+</div>
+<div class="choice-row">
+<button type="button" id="makeVideoBtn" class="primary-btn" onclick="createBirthdayVideo()">Create animated video 🎬</button>
+</div>
+<p class="small">Keep this page open while the video is being created.</p>
 </section>
 
-<!-- VIDEO -->
-<section id="videoSection" class="page hidden">
-  <div class="card">
-    <h2>🎬 Your Birthday Memory Video</h2>
-    <p class="muted" style="text-align:center">
-      Preview your animated birthday slideshow and download it.
-    </p>
-
-    <canvas id="videoCanvas" width="1280" height="720" class="hidden"></canvas>
-    <video id="videoPreview" controls playsinline></video>
-
-    <div class="progress-wrap">
-      <div id="progressBar"></div>
-    </div>
-
-    <p id="videoStatus" class="error" role="status">
-      Generate the video to begin.
-    </p>
-
-    <div class="video-controls">
-      <button type="button" id="playPreviewBtn" class="primary-btn" disabled>
-        Preview Video ▶
-      </button>
-      <button type="button" id="downloadVideoBtn" class="primary-btn" disabled>
-        Download Video ⬇
-      </button>
-      <button type="button" id="recreateVideoBtn" class="secondary-btn">
-        Recreate Video
-      </button>
-    </div>
-
-    <p class="small-note">
-      Video recording requires browser support for canvas recording and
-      MediaRecorder. The video is saved in WebM format.
-    </p>
-
-    <div class="form-actions">
-      <button type="button" id="backToPhotos" class="secondary-btn">
-        Change Photos
-      </button>
-      <button type="button" id="startAgain" class="secondary-btn">
-        Start Again ↻
-      </button>
-    </div>
-  </div>
+<section id="videoSection" class="panel hidden">
+<h2>Your birthday video is ready! 🎉</h2>
+<p id="videoMessage" class="section-note">Preview it before downloading.</p>
+<div class="video-box"><video id="videoPreview" controls playsinline></video></div>
+<div class="choice-row">
+<a id="downloadVideo" class="primary-btn" href="#" download="birthday-surprise.webm" style="display:inline-block;text-decoration:none">Download video ⬇️</a>
+<button type="button" class="secondary-btn" onclick="showPhotos()">Choose another photo</button>
+</div>
+<p class="small">The video is saved in WebM format.</p>
 </section>
-
-<footer>Made with 💖 for a very special birthday</footer>
+<footer>Made with love 💕</footer>
+</main>
 
 <script>
 "use strict";
 
 const $ = id => document.getElementById(id);
+let chosenPhotoUrl = "";
+let temporaryPhoto = false;
+let generatedVideoUrl = "";
+let selectedPhotoLabel = "";
+let currentName = "Birthday Star";
 
-const sections = [
-  "cover",
-  "detailsSection",
-  "wishesSection",
-  "photosSection",
-  "videoSection"
+const defaultPhotos = [
+{src:"images/IMG_20260324_092511.jpg",label:"Special photo"},
+{src:"images/img1.jpg",label:"Photo 1"},
+{src:"images/img2.jpg",label:"Photo 2"},
+{src:"images/img3.jpg",label:"Photo 3"},
+{src:"images/img4.jpg",label:"Photo 4"},
+{src:"images/img5.jpg",label:"Photo 5"},
+{src:"images/img6.jpg",label:"Photo 6"},
+{src:"images/img7.jpg",label:"Photo 7"},
+{src:"images/img8.jpg",label:"Photo 8"},
+{src:"images/img9.jpg",label:"Photo 9"},
+{src:"images/img10.jpg",label:"Photo 10"}
 ];
 
-const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
-let person = { name: "", day: 0, month: 0, year: 0 };
-let customPhotos = [];
-let videoUrl = "";
-let recorder = null;
-let isGenerating = false;
-
-function showSection(id) {
-  sections.forEach(section => $(section).classList.add("hidden"));
-  $(id).classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function showOnly(sectionId){
+["cover","detailsSection","birthdaySection","photoSection","videoSection"].forEach(id=>{
+$(id).classList.toggle("hidden",id!==sectionId);
+});
+window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function populateDateSelectors() {
-  for (let day = 1; day <= 31; day++) {
-    const option = document.createElement("option");
-    option.value = day;
-    option.textContent = day;
-    $("birthDay").appendChild(option);
-  }
-
-  months.forEach((month, index) => {
-    const option = document.createElement("option");
-    option.value = index + 1;
-    option.textContent = month;
-    $("birthMonth").appendChild(option);
-  });
-
-  for (let year = new Date().getFullYear(); year >= 1900; year--) {
-    const option = document.createElement("option");
-    option.value = year;
-    option.textContent = year;
-    $("birthYear").appendChild(option);
-  }
+function openDetails(){
+$("formError").textContent="";
+showOnly("detailsSection");
+setTimeout(()=>$("personName").focus(),250);
 }
 
-/* WORKING OPEN BUTTON */
-function openDetails() {
-  showSection("detailsSection");
-  $("formError").textContent = "";
-  setTimeout(() => $("personName").focus(), 200);
+function populateDateDropdowns(){
+const day=$("dobDay"),month=$("dobMonth"),year=$("dobYear");
+for(let d=1;d<=31;d++){
+const option=document.createElement("option");
+option.value=d;option.textContent=d;day.appendChild(option);
+}
+["January","February","March","April","May","June","July","August","September","October","November","December"].forEach((name,index)=>{
+const option=document.createElement("option");
+option.value=index+1;option.textContent=name;month.appendChild(option);
+});
+for(let y=new Date().getFullYear();y>=1900;y--){
+const option=document.createElement("option");
+option.value=y;option.textContent=y;year.appendChild(option);
+}
+[day,month,year].forEach(el=>el.addEventListener("change",validateDate));
 }
 
-function validDate(day, month, year) {
-  const date = new Date(year, month - 1, day);
-  return date.getFullYear() === year &&
-         date.getMonth() === month - 1 &&
-         date.getDate() === day;
+function validateDate(){
+const d=Number($("dobDay").value),m=Number($("dobMonth").value),y=Number($("dobYear").value);
+if(d&&m&&y&&d>new Date(y,m,0).getDate()){
+$("formError").textContent="Please choose a valid date.";
+$("dobDay").value="";
+}else{$("formError").textContent="";}
 }
 
-function handleDetails(event) {
-  event.preventDefault();
-
-  const name = $("personName").value.trim();
-  const day = Number($("birthDay").value);
-  const month = Number($("birthMonth").value);
-  const year = Number($("birthYear").value);
-
-  if (!name) {
-    $("formError").textContent = "Please enter the person's name.";
-    return;
-  }
-
-  if (!day || !month || !year || !validDate(day, month, year)) {
-    $("formError").textContent = "Please select a valid date of birth.";
-    return;
-  }
-
-  person = { name, day, month, year };
-  $("displayName").textContent = name;
-  $("dobMessage").textContent =
-    "Wishing you a wonderful year ahead, " + name + "! 🎂";
-
-  confetti(60);
-  showSection("wishesSection");
+function showBirthday(){
+const name=$("personName").value.trim();
+const d=Number($("dobDay").value),m=Number($("dobMonth").value),y=Number($("dobYear").value);
+if(!name){$("formError").textContent="Please enter the person's name.";$("personName").focus();return;}
+if(!d||!m||!y||d>new Date(y,m,0).getDate()){
+$("formError").textContent="Please choose a valid day, month, and year.";return;
+}
+currentName=name;
+const monthName=$("dobMonth").options[$("dobMonth").selectedIndex].text;
+$("birthdayHeading").textContent="Happy Birthday, "+name+"! 🎂";
+$("birthdayWish").textContent="May your day be filled with happiness, laughter, beautiful memories, and all the love you deserve. Keep smiling, keep shining, and may the year ahead bring you wonderful surprises! 💖🎉";
+$("birthdayDate").textContent="Your special date: "+d+" "+monthName+" "+y;
+showOnly("birthdaySection");
 }
 
-function confetti(count) {
-  const colors = ["#ff4f91", "#ffe29a", "#a855f7", "#7dd3fc", "#ffffff"];
-
-  for (let i = 0; i < count; i++) {
-    const piece = document.createElement("div");
-    piece.className = "confetti";
-    piece.style.left = Math.random() * 100 + "vw";
-    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-    piece.style.animationDuration = (2 + Math.random() * 3) + "s";
-    piece.style.animationDelay = Math.random() + "s";
-    document.body.appendChild(piece);
-    setTimeout(() => piece.remove(), 6000);
-  }
+function showPhotos(){
+renderPhotoGrid();
+$("photoError").textContent="";
+showOnly("photoSection");
 }
 
-function currentPhotoMode() {
-  return document.querySelector('input[name="photoMode"]:checked').value;
+function placeholder(label){
+const svg='<svg xmlns="http://www.w3.org/2000/svg" width="300" height="220"><rect width="100%" height="100%" fill="#ffe3f0"/><text x="50%" y="45%" font-family="Arial" font-size="18" text-anchor="middle" fill="#8a2358">'+label+'</text><text x="50%" y="62%" font-family="Arial" font-size="13" text-anchor="middle" fill="#8a2358">Image not found</text></svg>';
+return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
 }
 
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("Image not found: " + src));
-    img.src = src;
-  });
+function renderPhotoGrid(){
+const grid=$("photoGrid");
+grid.replaceChildren();
+defaultPhotos.forEach(photo=>{
+const card=document.createElement("button");
+card.type="button";card.className="photo-card";
+const img=document.createElement("img");
+img.src=photo.src;img.alt=photo.label;img.loading="lazy";
+img.onerror=()=>{img.src=placeholder(photo.label);};
+const caption=document.createElement("span");
+caption.textContent=photo.label;
+card.append(img,caption);
+card.addEventListener("click",()=>selectPhoto(photo.src,photo.label,false));
+grid.appendChild(card);
+});
 }
 
-/* UPDATED DEFAULT PHOTO PATHS */
-async function getDefaultImages() {
-  const paths = [
-    "images/IMG_20260324_092511.jpg",
-    "images/img1.jpg",
-    "images/img2.jpg",
-    "images/img3.jpg",
-    "images/img4.jpg",
-    "images/img5.jpg",
-    "images/img6.jpg",
-    "images/img7.jpg",
-    "images/img8.jpg",
-    "images/img9.jpg",
-    "images/img10.jpg"
-  ];
-
-  const loaded = [];
-
-  for (let i = 0; i < paths.length; i++) {
-    try {
-      const image = await loadImage(paths[i]);
-
-      loaded.push({
-        image,
-        label: i === 0 ? "Special Photo" : "Photo " + i,
-        source: paths[i]
-      });
-    } catch (error) {
-      console.warn(error.message);
-    }
-  }
-
-  return loaded;
+function selectPhoto(src,label,isTemporary){
+if(temporaryPhoto&&chosenPhotoUrl)URL.revokeObjectURL(chosenPhotoUrl);
+chosenPhotoUrl=src;temporaryPhoto=isTemporary;selectedPhotoLabel=label;
+$("selectedPhoto").src=src;
+$("selectedPhotoWrap").classList.remove("hidden");
+$("photoError").textContent="";
+document.querySelectorAll(".photo-card").forEach(card=>{
+card.classList.toggle("selected",card.querySelector("span").textContent===label);
+});
 }
 
-async function renderPhotoGrid() {
-  const grid = $("photoGrid");
-  grid.replaceChildren();
-  $("photoStatus").textContent = "Loading photos...";
+$("uploadPhoto").addEventListener("change",event=>{
+const file=event.target.files&&event.target.files[0];
+if(!file)return;
+if(!file.type.startsWith("image/")){$("photoError").textContent="Please select an image.";return;}
+selectPhoto(URL.createObjectURL(file),file.name,true);
+});
 
-  if (currentPhotoMode() === "default") {
-    const photos = await getDefaultImages();
-
-    if (currentPhotoMode() !== "default") return;
-
-    grid.replaceChildren();
-
-    photos.forEach(photo => {
-      const tile = document.createElement("div");
-      tile.className = "photo-tile";
-
-      const img = document.createElement("img");
-      img.src = photo.source;
-      img.alt = photo.label;
-      img.loading = "lazy";
-
-      const label = document.createElement("span");
-      label.textContent = photo.label;
-
-      tile.append(img, label);
-      grid.appendChild(tile);
-    });
-
-    $("photoStatus").textContent = photos.length
-      ? photos.length + " default photo(s) loaded."
-      : "No images found. Check your images folder and filenames.";
-
-    return;
-  }
-
-  grid.replaceChildren();
-
-  customPhotos.forEach((photo, index) => {
-    const tile = document.createElement("div");
-    tile.className = "photo-tile";
-
-    const img = document.createElement("img");
-    img.src = photo.url;
-    img.alt = "Uploaded photo " + (index + 1);
-
-    const label = document.createElement("span");
-    label.textContent = "Photo " + (index + 1);
-
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "remove-photo";
-    remove.textContent = "×";
-    remove.setAttribute("aria-label", "Remove photo");
-
-    remove.addEventListener("click", () => {
-      URL.revokeObjectURL(photo.url);
-      customPhotos.splice(index, 1);
-      renderPhotoGrid();
-    });
-
-    tile.append(img, label, remove);
-    grid.appendChild(tile);
-  });
-
-  $("photoStatus").textContent = customPhotos.length
-    ? customPhotos.length + " uploaded photo(s) selected."
-    : "Upload one or more photos to continue.";
+function loadImage(url){
+return new Promise((resolve,reject)=>{
+const img=new Image();
+img.onload=()=>resolve(img);
+img.onerror=()=>reject(new Error("Could not load the selected photo. Check the image file."));
+img.src=url;
+});
 }
 
-function updatePhotoMode() {
-  const isDefault = currentPhotoMode() === "default";
-  $("defaultPhotoArea").classList.toggle("hidden", !isDefault);
-  $("customPhotoArea").classList.toggle("hidden", isDefault);
-  renderPhotoGrid();
+function wrapLines(ctx,text,maxWidth){
+const words=text.split(/\s+/),lines=[];
+let line="";
+words.forEach(word=>{
+const test=line?line+" "+word:word;
+if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word;}
+else{line=test;}
+});
+if(line)lines.push(line);
+return lines;
 }
 
-function handleUpload(event) {
-  const files = Array.from(event.target.files || []);
-  const images = files.filter(file => file.type.startsWith("image/"));
+function drawVideoFrame(ctx,img,w,h,time,duration){
+const progress=Math.min(1,time/duration);
+const zoom=1.02+progress*.08;
+ctx.save();
+ctx.beginPath();ctx.rect(0,0,w,h);ctx.clip();
+ctx.drawImage(img,(w-w*zoom)/2,(h-h*zoom)/2,w*zoom,h*zoom);
+ctx.restore();
 
-  images.forEach(file => {
-    customPhotos.push({
-      file,
-      url: URL.createObjectURL(file)
-    });
-  });
+const shade=ctx.createLinearGradient(0,0,0,h);
+shade.addColorStop(0,"rgba(30,0,30,.15)");
+shade.addColorStop(.5,"rgba(30,0,30,.08)");
+shade.addColorStop(1,"rgba(30,0,30,.76)");
+ctx.fillStyle=shade;ctx.fillRect(0,0,w,h);
 
-  event.target.value = "";
-  renderPhotoGrid();
+ctx.textAlign="center";
+["♥","✦","♥","✧","♥"].forEach((heart,i)=>{
+ctx.globalAlpha=.5+.5*Math.abs(Math.sin(time*2+i));
+ctx.fillStyle="#fff4fa";
+ctx.font="bold 27px Arial";
+ctx.fillText(heart,50+i*(w-100)/4,52+Math.sin(time*2+i)*12);
+});
+ctx.globalAlpha=1;
+ctx.fillStyle="white";ctx.shadowColor="rgba(0,0,0,.35)";ctx.shadowBlur=10;
+ctx.font="bold 43px Arial";
+ctx.fillText("Happy Birthday!",w/2,h-112);
+ctx.font="bold 32px Arial";
+wrapLines(ctx,currentName,w-90).slice(0,2).forEach((line,i)=>ctx.fillText(line,w/2,h-65+i*35));
+ctx.shadowBlur=0;ctx.font="20px Arial";ctx.fillStyle="#ffe5f2";
+ctx.fillText("Wishing you love, joy & beautiful memories",w/2,h-20);
 }
 
-async function getSelectedImages() {
-  if (currentPhotoMode() === "default") {
-    return getDefaultImages();
-  }
-
-  const result = [];
-
-  for (let i = 0; i < customPhotos.length; i++) {
-    try {
-      result.push({
-        image: await loadImage(customPhotos[i].url),
-        label: "Memory " + (i + 1)
-      });
-    } catch (error) {
-      console.warn(error);
-    }
-  }
-
-  return result;
+async function createBirthdayVideo(){
+if(!chosenPhotoUrl){$("photoError").textContent="Please select a photo first.";return;}
+if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){
+$("photoError").textContent="Video creation is not supported in this browser. Try the latest Chrome browser.";return;
+}
+const button=$("makeVideoBtn");
+button.disabled=true;button.textContent="Creating video... please wait";
+$("photoError").textContent="";
+let stream;
+try{
+const img=await loadImage(chosenPhotoUrl);
+const canvas=document.createElement("canvas");
+canvas.width=960;canvas.height=540;
+const ctx=canvas.getContext("2d");
+stream=canvas.captureStream(25);
+const mimeType=MediaRecorder.isTypeSupported("video/webm;codecs=vp9")?"video/webm;codecs=vp9":"video/webm";
+const chunks=[];
+const recorder=new MediaRecorder(stream,{mimeType});
+recorder.ondataavailable=event=>{if(event.data&&event.data.size)chunks.push(event.data);};
+const stopped=new Promise((resolve,reject)=>{
+recorder.onstop=resolve;
+recorder.onerror=()=>reject(new Error("Video recording failed."));
+});
+recorder.start(250);
+const duration=7,start=performance.now();
+await new Promise(resolve=>{
+function frame(now){
+const elapsed=(now-start)/1000;
+drawVideoFrame(ctx,img,canvas.width,canvas.height,elapsed,duration);
+if(elapsed>=duration)resolve();
+else requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+});
+recorder.stop();
+await stopped;
+stream.getTracks().forEach(track=>track.stop());
+const blob=new Blob(chunks,{type:"video/webm"});
+if(!blob.size)throw new Error("Video file is empty. Please try again.");
+if(generatedVideoUrl)URL.revokeObjectURL(generatedVideoUrl);
+generatedVideoUrl=URL.createObjectURL(blob);
+$("videoPreview").src=generatedVideoUrl;
+$("downloadVideo").href=generatedVideoUrl;
+$("downloadVideo").download="birthday-"+currentName.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".webm";
+$("videoMessage").textContent="Selected photo: "+selectedPhotoLabel+". Preview your video below.";
+showOnly("videoSection");
+}catch(error){
+$("photoError").textContent=error.message||"Something went wrong while creating the video.";
+if(stream)stream.getTracks().forEach(track=>track.stop());
+}finally{
+button.disabled=false;
+button.textContent="Create animated video 🎬";
+}
 }
 
-function drawBackground(ctx, width, height, time) {
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, "#240d3d");
-  gradient.addColorStop(.5, "#75235e");
-  gradient.addColorStop(1, "#1b1245");
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-
-  for (let i = 0; i < 50; i++) {
-    const x = (i * 173 + time * (15 + i % 5)) % width;
-    const y = (i * 97 + Math.sin(time + i) * 45) % height;
-
-    ctx.beginPath();
-    ctx.arc(x, y, 2 + i % 3, 0, Math.PI * 2);
-    ctx.fillStyle = i % 2 ? "#ffb6dc88" : "#ffe29a99";
-    ctx.fill();
-  }
-}
-
-function drawText(ctx, text, x, y, maxWidth, font) {
-  ctx.font = font;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = "white";
-  ctx.shadowColor = "#ff4f91";
-  ctx.shadowBlur = 15;
-  ctx.fillText(text, x, y, maxWidth);
-  ctx.shadowBlur = 0;
-}
-
-function drawTitle(ctx, time, width, height) {
-  drawBackground(ctx, width, heigh
+document.addEventListener("DOMContentLoaded",populateDateDropdowns);
+</script>
+</body>
+</html>
